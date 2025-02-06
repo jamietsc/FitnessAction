@@ -2,6 +2,8 @@
 // Created by Admin on 06.02.2025.
 //
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
 #include "Game.h"
 
 //Konstruktor und Destruktor
@@ -21,6 +23,14 @@ const bool Game::isRunning() const {
     return this->window->isOpen();
 }
 
+void Game::updateDt() {
+    //Update der dt Varibale mit der Zeit wie lange es gedauert hat einen Frame zu rendern
+    this->dt = this->dtClock.restart().asSeconds();
+
+
+
+}
+
 /* Funktionen */
 void Game::pollEvents() {
     while (this->window->pollEvent(this->event)) {
@@ -31,14 +41,12 @@ void Game::pollEvents() {
             case sf::Event::KeyPressed:
                 if (this->event.key.code == sf::Keyboard::Escape) {
                     this->window->close();
-                } else if (this->event.key.code == sf::Keyboard::W) {
-                    this->player->move(0, -1);
                 } else if (this->event.key.code == sf::Keyboard::A) {
-                    this->player->move(-1, 0);
-                } else if (this->event.key.code == sf::Keyboard::S) {
-                    this->player->move(0, 1);
+                    this->player->move(-1, dt);
                 } else if (this->event.key.code == sf::Keyboard::D) {
-                    this->player->move(1, 0);
+                    this->player->move(1, dt);
+                } else if (this->event.key.code == sf::Keyboard::Space) {
+                    this->player->jump();
                 }
             break;
         }
@@ -51,6 +59,8 @@ void Game::update() {
 
     //Spieler aktualisieren
     this->player->update();
+
+    std::cout << dt << " sekunden" << std::endl;
 }
 
 void Game::render() {
@@ -77,5 +87,5 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    this->player = new Fighter("Spieler1", 100, 5, 100, 100);
+    this->player = new Fighter("Spieler1", 100, 5, 100, 100, 0.0f, 9.8f);
 }

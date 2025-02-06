@@ -4,8 +4,8 @@
 
 #include "Fighter.h"
 
-Fighter::Fighter(sf::String name, int gesundheit, int geschwindigkeit, int xPos, int yPos)
-    : name(name), gesundheit(gesundheit), geschwindigkeit(geschwindigkeit), xPos(xPos), yPos(yPos)
+Fighter::Fighter(sf::String name, int health, int velocity, int xPos, int yPos, float velocityY, Gravity gravity)
+    : name(name), health(health), velocity(velocity), xPos(xPos), yPos(yPos), velocityY(velocityY), gravity(gravity)
 {
     //Initialisierung der Form
     this->shape.setSize(sf::Vector2f(50.f, 50.f));
@@ -25,8 +25,11 @@ void Fighter::render(sf::RenderTarget& target) {
     target.draw(this->shape);
 }
 
-void Fighter::move(int dirX, int dirY) {
-    this->xPos += dirX * this->geschwindigkeit;
-    this->yPos += dirY * this->geschwindigkeit;
+void Fighter::move(int dirX, float deltaTime) {
+    this->xPos += dirX * this->velocity * deltaTime;
+}
+
+void Fighter::jump() {
+
 }
 

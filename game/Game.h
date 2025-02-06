@@ -26,6 +26,7 @@ public:
     const bool isRunning() const;
 
     //Funktionen
+    void updateDt();
     void pollEvents();
     void update();
     void render();
@@ -37,6 +38,10 @@ private:
     sf::RenderWindow* window;
     sf::VideoMode videoMode;
     sf::Event event;
+
+    //Delta time
+    sf::Clock dtClock;
+    float dt;
 
     //spieler
     Fighter* player; //zeige auf den Spieler

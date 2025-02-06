@@ -21,7 +21,9 @@ add_executable(FitnessAction main.cpp
         game/Weapon.cpp
         game/Weapon.h
         game/AI.cpp
-        game/AI.h)
+        game/AI.h
+        game/Gravity.cpp
+        game/Gravity.h)
 
 #SFML mit dem Projekt linken
 target_link_libraries(FitnessAction PRIVATE sfml-graphics)

@@ -12,10 +12,11 @@
 #include "SFML/System/String.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "Fighter.h"
+#include "Gravity.h"
 
 class Fighter {
 public:
-    Fighter(sf::String name, int gesundheit, int geschwindigkeit, int xPos, int yPos);
+    Fighter(sf::String name, int health, int velocity, int xPos, int yPos, float velocityY, Gravity gravity);
     ~Fighter();
 
     //Funktionen
@@ -23,15 +24,19 @@ public:
     void render(sf::RenderTarget& target);
 
     //Bewegung
-    void move(int dirX, int dirY);
+    void move(int dirX, float deltaTime);
+    void jump();
 
 private:
     sf::String name;
-    int gesundheit;
-    int geschwindigkeit;
+    int health;
+    int velocity;
     int xPos, yPos;
+    float velocityY;
 
     sf::RectangleShape shape;
+
+    Gravity gravity; //Instanz der Gravitation
 };
 
 

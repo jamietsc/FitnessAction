@@ -6,6 +6,8 @@ int main() {
 
     //Game loop
     while (game.isRunning()) {
+        game.updateDt();
+
         //Update
         game.update();
 
