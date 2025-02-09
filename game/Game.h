@@ -12,6 +12,7 @@
 #include <SFML/Network.hpp>
 
 #include "Fighter.h"
+#include "Weapon.h"
 
 /**
  * Klasse welche die Game Engine darstellt
@@ -39,6 +40,10 @@ private:
     sf::VideoMode videoMode;
     sf::Event event;
 
+    //Hintergrund
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
     //Delta time
     sf::Clock dtClock;
     float dt;
@@ -46,10 +51,15 @@ private:
     //spieler
     Fighter* player; //zeige auf den Spieler
 
+    //AI
+    Fighter* AI; //Zeigt auf die AI
+
     //Private funktionen
     void initVariables();
+    void scaleBackground();
     void initWindow();
     void initPlayer();
+    void initAI();
 
 
 };

@@ -13,10 +13,13 @@
 #include "SFML/System/Vector2.hpp"
 #include "Fighter.h"
 #include "Gravity.h"
+#include "Weapon.h"
+#include "SFML/Graphics/Sprite.hpp"
+#include "SFML/Graphics/Texture.hpp"
 
 class Fighter {
 public:
-    Fighter(sf::String name, int health, int velocity, int xPos, int yPos, float velocityY, Gravity gravity);
+    Fighter(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity, Weapon weapon);
     ~Fighter();
 
     //Funktionen
@@ -31,12 +34,17 @@ private:
     sf::String name;
     int health;
     int velocity;
-    int xPos, yPos;
+    float xPos, yPos;
     float velocityY;
 
     sf::RectangleShape shape;
 
     Gravity gravity; //Instanz der Gravitation
+    Weapon weapon; //Instanz für die Waffe des Spielers
+
+    //Texturen von Waffe und Spieler
+    sf::Texture playerTexture, weaponTexture;
+    sf::Sprite playerSprite, weaponSprite;
 };
 
 
