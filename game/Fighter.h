@@ -25,6 +25,7 @@ public:
     //Funktionen
     void update();
     void render(sf::RenderTarget& target);
+    bool isDead();
 
     //Bewegung
     void move(int dirX, float deltaTime);
@@ -35,6 +36,8 @@ public:
 
     //Getter
     float getXPos();
+
+
 
 private:
     sf::String name;

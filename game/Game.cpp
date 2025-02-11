@@ -70,6 +70,16 @@ void Game::update() {
 
     //Spieler aktualisieren
     this->player->update();
+
+    //AI aktualisieren
+    this->AI->update();
+
+    if (AI->isDead()) {
+        this->window->close();
+    }
+    if (player->isDead()) {
+        this->window->close();
+    }
 }
 
 void Game::render() {

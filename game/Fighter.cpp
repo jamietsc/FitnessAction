@@ -42,6 +42,15 @@ void Fighter::render(sf::RenderTarget& target) {
 
 }
 
+bool Fighter::isDead() {
+
+    if (this->health <= 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void Fighter::move(int dirX, float deltaTime) {
     if (dirX == -1) {
         this->xPos -= (this->velocity * deltaTime) + velocity;
@@ -55,10 +64,11 @@ void Fighter::jump() {
 }
 
 void Fighter::attack(Fighter& enemy) {
+    std::cout << "Spieler Gesundheit: " << this->health << std::endl;
+    std::cout << "Gegner Gesundheit: " << enemy.health << std::endl;
     //Zahlen anpassen um die Hitbox einzustellen
     if (this->xPos + 60 >= enemy.xPos && this->xPos - 60 <= enemy.xPos) {
         enemy.health -= this->weapon.getDamage();
-        std::cout << "Gesundheit liegt bei: " << enemy.health << std::endl;
     } else {
         std::cerr << "Gegner war nicht in der nähe" << std::endl;
     }
