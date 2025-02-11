@@ -5,14 +5,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 #include "Fighter.h"
-#include "Weapon.h"
+#include "AI.h"
 #include "../GUI/PlayerGUI.h"
 
 /**
@@ -54,7 +51,7 @@ private:
     PlayerGUI* playerGUI; //Zeige auf playerGui
 
     //AI
-    Fighter* AI; //Zeigt auf die AI
+    AI* ai; //Zeigt auf die AI
     PlayerGUI* aiGUI; //Zeigt auf aiGUI
 
     //Private funktionen

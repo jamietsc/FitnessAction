@@ -20,7 +20,7 @@ Game::Game() {
 Game::~Game() {
     delete this->window;
     delete this->player;
-    delete this->AI;
+    delete this->ai;
     delete this->playerGUI;
     delete this->aiGUI;
 }
@@ -63,7 +63,7 @@ void Game::pollEvents() {
                 break;
             case sf::Event::MouseButtonPressed:
                 if (this->event.mouseButton.button == sf::Mouse::Left) {
-                    this->player->attack(*AI);
+                    this->player->attack(*ai);
                 }
                 break;
             case sf::Event::Resized:
@@ -84,10 +84,10 @@ void Game::update() {
     this->playerGUI->update(dt);
 
     //AI aktualisieren
-    this->AI->update(dt);
+    this->ai->update(dt);
     this->aiGUI->update(dt);
 
-    if (AI->isDead()) {
+    if (ai->isDead()) {
         this->window->close();
     }
     if (player->isDead()) {
@@ -106,7 +106,7 @@ void Game::render() {
     this->playerGUI->render(*this->window);
 
     //AI und Waffe Rendern
-    this->AI->render(*this->window);
+    this->ai->render(*this->window);
     this->aiGUI->render(*this->window);
 
 
@@ -120,7 +120,7 @@ void Game::render() {
 void Game::initVariables() {
     this->window = nullptr;
     this->player = nullptr;
-    this->AI = nullptr;
+    this->ai = nullptr;
     this->playerGUI = nullptr;
     this->aiGUI = nullptr;
 }
@@ -163,6 +163,6 @@ void Game::initPlayer() {
 
 void Game::initAI() {
     Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
-    this->AI = new Fighter("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
-    this->aiGUI = new PlayerGUI(this->AI, sf::Vector2f(620, 20.0f));
+    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
+    this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
