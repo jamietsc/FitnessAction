@@ -16,6 +16,9 @@ public:
     void use();
     void render(sf::RenderTarget& target, float xPosPlayer, float yPosPlayer);
 
+    //Getter
+    int getDamage();
+
 private:
     sf::String name;
     int damage;

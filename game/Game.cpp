@@ -50,10 +50,16 @@ void Game::pollEvents() {
                 } else if (this->event.key.code == sf::Keyboard::Space) {
                     this->player->jump();
                 }
+                break;
+            case sf::Event::MouseButtonPressed:
+                if (this->event.mouseButton.button == sf::Mouse::Left) {
+                    this->player->attack(*AI);
+                }
+                break;
             case sf::Event::Resized:
                 scaleBackground();
                 break;
-            break;
+
         }
     }
 }
@@ -118,11 +124,11 @@ void Game::initWindow() {
 
 void Game::initPlayer() {
     Weapon *playerWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
-    this->player = new Fighter("Spieler1", 100, 3, 100, 500, 0.0f, 9.8f, *playerWeapon);
+    this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon, "../img/Spielertest.png");
 
 }
 
 void Game::initAI() {
     Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
-    this->AI = new Fighter("AI", 100, 3, 400, 500, 0.0f, 9.8f, *aiWeapon);
+    this->AI = new Fighter("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
 }

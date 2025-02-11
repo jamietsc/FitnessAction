@@ -19,7 +19,7 @@
 
 class Fighter {
 public:
-    Fighter(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity, Weapon weapon);
+    Fighter(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity, Weapon weapon, sf::String skinPath);
     ~Fighter();
 
     //Funktionen
@@ -29,6 +29,12 @@ public:
     //Bewegung
     void move(int dirX, float deltaTime);
     void jump();
+
+    //Kampf Funktionen
+    void attack(Fighter& enemy);
+
+    //Getter
+    float getXPos();
 
 private:
     sf::String name;
@@ -45,6 +51,7 @@ private:
     //Texturen von Waffe und Spieler
     sf::Texture playerTexture, weaponTexture;
     sf::Sprite playerSprite, weaponSprite;
+    sf::String skinPath;
 };
 
 

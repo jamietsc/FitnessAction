@@ -18,9 +18,14 @@ Weapon::Weapon(const sf::String &name, int damage, float attackSpeed, const sf::
 }
 
 void Weapon::use() {
+
 }
 
 void Weapon::render(sf::RenderTarget &target, float xPosPlayer, float yPosPlayer) {
     this->weaponSprite.setPosition(xPosPlayer + 20, yPosPlayer);
     target.draw(this->weaponSprite);
+}
+
+int Weapon::getDamage() {
+    return this->damage;
 }
