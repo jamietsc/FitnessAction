@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "../GUI/PlayerGUI.h"
 
 int dirX = 0;
 
@@ -19,6 +20,9 @@ Game::Game() {
 Game::~Game() {
     delete this->window;
     delete this->player;
+    delete this->AI;
+    delete this->playerGUI;
+    delete this->aiGUI;
 }
 
 //accessors
@@ -77,10 +81,11 @@ void Game::update() {
     //Spieler aktualisieren
     this->player->update(dt);
     this->player->move(dirX, dt);
-
+    this->playerGUI->update(dt);
 
     //AI aktualisieren
     this->AI->update(dt);
+    this->aiGUI->update(dt);
 
     if (AI->isDead()) {
         this->window->close();
@@ -98,9 +103,13 @@ void Game::render() {
 
     //Spieler und Waffe rendern
     this->player->render(*this->window);
+    this->playerGUI->render(*this->window);
 
-    //AI Rendern
+    //AI und Waffe Rendern
     this->AI->render(*this->window);
+    this->aiGUI->render(*this->window);
+
+
 
     this->window->display();
 }
@@ -112,6 +121,8 @@ void Game::initVariables() {
     this->window = nullptr;
     this->player = nullptr;
     this->AI = nullptr;
+    this->playerGUI = nullptr;
+    this->aiGUI = nullptr;
 }
 
 void Game::scaleBackground() {
@@ -146,10 +157,12 @@ void Game::initWindow() {
 void Game::initPlayer() {
     Weapon *playerWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
     this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon, "../img/Spielertest.png");
+    this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 
 }
 
 void Game::initAI() {
     Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
     this->AI = new Fighter("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
+    this->aiGUI = new PlayerGUI(this->AI, sf::Vector2f(620, 20.0f));
 }

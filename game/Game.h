@@ -13,6 +13,7 @@
 
 #include "Fighter.h"
 #include "Weapon.h"
+#include "../GUI/PlayerGUI.h"
 
 /**
  * Klasse welche die Game Engine darstellt
@@ -50,9 +51,11 @@ private:
 
     //spieler
     Fighter* player; //zeige auf den Spieler
+    PlayerGUI* playerGUI; //Zeige auf playerGui
 
     //AI
     Fighter* AI; //Zeigt auf die AI
+    PlayerGUI* aiGUI; //Zeigt auf aiGUI
 
     //Private funktionen
     void initVariables();

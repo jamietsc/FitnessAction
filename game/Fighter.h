@@ -36,6 +36,7 @@ public:
 
     //Getter
     float getXPos();
+    int getHealth();
 
 
 

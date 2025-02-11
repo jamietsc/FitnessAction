@@ -117,3 +117,7 @@ void Fighter::attack(Fighter &enemy) {
 float Fighter::getXPos() {
     return this->xPos;
 }
+
+int Fighter::getHealth() {
+    return this->health;
+}

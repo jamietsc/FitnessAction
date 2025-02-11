@@ -23,7 +23,9 @@ add_executable(FitnessAction main.cpp
         game/AI.cpp
         game/AI.h
         game/Gravity.cpp
-        game/Gravity.h)
+        game/Gravity.h
+        GUI/PlayerGUI.cpp
+        GUI/PlayerGUI.h)
 
 #SFML mit dem Projekt linken
 target_link_libraries(FitnessAction PRIVATE sfml-graphics)
