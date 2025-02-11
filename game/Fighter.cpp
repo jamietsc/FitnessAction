@@ -6,6 +6,7 @@
 
 const float groundYCor = 500.0f;
 
+
 Fighter::Fighter(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity,
                  Weapon weapon, sf::String skinPath)
     : name(name), health(health), velocity(velocity), xPos(xPos), yPos(yPos), velocityY(velocityY), gravity(gravity),
@@ -58,11 +59,41 @@ bool Fighter::isDead() {
 }
 
 void Fighter::move(int dirX, float deltaTime) {
-    if (dirX == -1) {
-        this->xPos -= (this->velocity * deltaTime) + velocity;
-    } else if (dirX == 1) {
-        this->xPos = this->xPos + (dirX * this->velocity * deltaTime) + velocity;
+    float maxSpeed = 5.0f; //maximale Geschwindigkeit
+
+    if (dirX != 0) {
+        if ((dirX > 0 && velocityX < 0) || (dirX < 0 && velocityX > 0)) {
+            velocityX = 0; //Geschwindigkeit nach Richtungswechsel zurücksetzen
+        }
+
+        //Beschleunigung
+        velocityX += dirX * acceleration * deltaTime * 60;
+
+        //Geschwindigkeit auf maxSpeed begrenzen
+        if (velocityX > maxSpeed) {
+            velocityX = maxSpeed;
+        }
+        if (velocityX < -maxSpeed) {
+            velocityX = -maxSpeed;
+        }
+    } else {
+        //Falls keine Taste gedrückt wird, langsames abbremsen
+        velocityX *= friction;
+
+        if (std::abs(velocityX) < 0.1f) {
+            velocityX = 0;
+        }
     }
+
+    xPos += velocityX * deltaTime * 60;
+
+    //Begrenzung für den Spieler um im Bild zu bleiben
+    xPos = std::clamp(xPos, 0.0f, 800.f - shape.getSize().x);
+
+    //Position aktualisieren
+    shape.setPosition(this->xPos, this->yPos);
+    playerSprite.setPosition(this->xPos, this->yPos);
+    weaponSprite.setPosition(this->xPos + 20, this->yPos + 20);
 }
 
 void Fighter::jump() {

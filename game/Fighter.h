@@ -46,6 +46,10 @@ private:
     float xPos, yPos;
     float velocityY;
 
+    float velocityX = 0.0f; //aktuelle Bewegungsgeschwindigkeit
+    float acceleration = 1.1f; //Beschleunigung des Spielers
+    float friction = 0.9f; //Reibung für langsames stoppen
+
     //
     //bool isJumping = false;
 

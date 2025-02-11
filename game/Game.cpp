@@ -6,6 +6,7 @@
 
 #include "Game.h"
 
+int dirX = 0;
 
 //Konstruktor und Destruktor
 Game::Game() {
@@ -44,11 +45,16 @@ void Game::pollEvents() {
                 if (this->event.key.code == sf::Keyboard::Escape) {
                     this->window->close();
                 } else if (this->event.key.code == sf::Keyboard::A) {
-                    this->player->move(-1, dt);
+                    dirX = -1;
                 } else if (this->event.key.code == sf::Keyboard::D) {
-                    this->player->move(1, dt);
+                    dirX = 1;
                 } else if (this->event.key.code == sf::Keyboard::Space) {
                     this->player->jump();
+                }
+                break;
+            case sf::Event::KeyReleased:
+                if (this->event.key.code != sf::Keyboard::A || this->event.key.code != sf::Keyboard::D) {
+                    dirX = 0;
                 }
                 break;
             case sf::Event::MouseButtonPressed:
@@ -70,6 +76,8 @@ void Game::update() {
 
     //Spieler aktualisieren
     this->player->update(dt);
+    this->player->move(dirX, dt);
+
 
     //AI aktualisieren
     this->AI->update(dt);
