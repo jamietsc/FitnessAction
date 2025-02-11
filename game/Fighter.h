@@ -23,7 +23,7 @@ public:
     ~Fighter();
 
     //Funktionen
-    void update();
+    void update(float deltaTime);
     void render(sf::RenderTarget& target);
     bool isDead();
 
@@ -45,6 +45,9 @@ private:
     int velocity;
     float xPos, yPos;
     float velocityY;
+
+    //
+    //bool isJumping = false;
 
     sf::RectangleShape shape;
 

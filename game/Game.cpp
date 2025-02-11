@@ -69,10 +69,10 @@ void Game::update() {
     this->pollEvents();
 
     //Spieler aktualisieren
-    this->player->update();
+    this->player->update(dt);
 
     //AI aktualisieren
-    this->AI->update();
+    this->AI->update(dt);
 
     if (AI->isDead()) {
         this->window->close();
@@ -130,6 +130,9 @@ void Game::initWindow() {
     this->backgroundSprite.setTexture(this->backgroundTexture);
 
     scaleBackground();
+
+    //Framelimit setzen
+    window->setFramerateLimit(60);
 }
 
 void Game::initPlayer() {
