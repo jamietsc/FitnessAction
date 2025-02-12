@@ -11,7 +11,9 @@
 #include "Fighter.h"
 #include "AI.h"
 #include "../GUI/PlayerGUI.h"
+#include "../GUI/MainMenu.h"
 
+class MainMenu;
 /**
  * Klasse welche die Game Engine darstellt
  */
@@ -54,12 +56,17 @@ private:
     AI* ai; //Zeigt auf die AI
     PlayerGUI* aiGUI; //Zeigt auf aiGUI
 
+    //Main Menu
+    MainMenu* mainMenu;
+    bool inMenu = false;
+
     //Private funktionen
     void initVariables();
     void scaleBackground();
     void initWindow();
     void initPlayer();
     void initAI();
+    void initMainMenu();
 
 
 };
