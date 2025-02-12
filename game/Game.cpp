@@ -60,6 +60,8 @@ void Game::pollEvents() {
                             inMenu = false; // Spiel starten
                         } else if (mainMenu->getSelectedItem() == 1) {
                             //Hier dann die Logik für die Optionen einfügen
+                        } else if (mainMenu->getSelectedItem() == 2) {
+                            this->window->close();
                         }
                         break;
                     }
