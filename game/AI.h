@@ -12,11 +12,13 @@ private:
     float aiTimer; //Timer für KI Entscheidungen
     int aiState; //Zustand der KI (z.B. 0 = ruhig, 1 = Angriff)
 
-    void updateAI(float dt); //Logik für das verhalten des Gegners
+    void updateAI(float dt, Fighter& player); //Logik für das verhalten des Gegners
+
+
 
 public:
     AI(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity, Weapon weapon, sf::String skinPath);
-    void update(float dt);
+    void update(float dt, Fighter& player);
 };
 
 #endif //AI_H

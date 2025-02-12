@@ -84,7 +84,7 @@ void Game::update() {
     this->playerGUI->update(dt);
 
     //AI aktualisieren
-    this->ai->update(dt);
+    this->ai->update(dt, *player);
     this->aiGUI->update(dt);
 
     if (ai->isDead()) {
