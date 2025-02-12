@@ -16,6 +16,7 @@ Game::Game() {
     this->initPlayer();
     this->initAI();
     this->initMainMenu();
+    this->initEndScreen();
 }
 
 Game::~Game() {
@@ -25,6 +26,7 @@ Game::~Game() {
     delete this->playerGUI;
     delete this->aiGUI;
     delete this->mainMenu;
+    delete this->endScreen;
 }
 
 //accessors
@@ -43,6 +45,8 @@ void Game::pollEvents() {
         if (this->event.type == sf::Event::Closed) {
             this->window->close();
         }
+
+        //steuerung für das Main Menu
         if (inMenu) {
             switch (this->event.type) {
                 case sf::Event::Closed:
@@ -50,10 +54,8 @@ void Game::pollEvents() {
                     break;
                 case sf::Event::KeyPressed:
                     if (this->event.key.code == sf::Keyboard::Up) {
-                        std::cout << "up" << std::endl;
                         mainMenu->moveUp();
                     } else if (this->event.key.code == sf::Keyboard::Down) {
-                        std::cout << "down" << std::endl;
                         mainMenu->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
                         if (mainMenu->getSelectedItem() == 0) {
@@ -67,7 +69,8 @@ void Game::pollEvents() {
                     }
             }
         }
-        if (!inMenu) {
+        //Steuerung für das Spiel
+        if (!inMenu || !inEndScreen) {
             switch (this->event.type) {
                 case sf::Event::Closed:
                     this->window->close();
@@ -98,13 +101,37 @@ void Game::pollEvents() {
                     break;
             }
         }
+
+        //Steuerung für den End Bildschirm
+        if (inEndScreen) {
+            switch (this->event.type) {
+                case sf::Event::Closed:
+                    this->window->close();
+                    break;
+                case sf::Event::KeyPressed:
+                    if (this->event.key.code == sf::Keyboard::Up) {
+                        endScreen->moveUp();
+                    } else if (this->event.key.code == sf::Keyboard::Down) {
+                        endScreen->moveDown();
+                    } else if (this->event.key.code == sf::Keyboard::Enter) {
+                        if (endScreen->getSelectedItem() == 0) {
+                            restartGame();
+                        } else if (endScreen->getSelectedItem() == 1) {
+                            //Logik für Charakter Auswahl einfügen
+                        } else if (endScreen->getSelectedItem() == 2) {
+                            this->window->close();
+                        }
+                        break;
+                    }
+            }
+        }
     }
 }
 
 
 void Game::update() {
     this->pollEvents();
-    if (!inMenu) {
+    if (!inMenu || !inEndScreen) {
         //Spieler aktualisieren
         this->player->update(dt);
         this->player->move(dirX, dt);
@@ -114,11 +141,8 @@ void Game::update() {
         this->ai->update(dt, *player);
         this->aiGUI->update(dt);
 
-        if (ai->isDead()) {
-            this->window->close();
-        }
-        if (player->isDead()) {
-            this->window->close();
+        if (ai->isDead() || player->isDead()) {
+            this->inEndScreen = true;
         }
     }
 }
@@ -128,7 +152,7 @@ void Game::render() {
 
     if (inMenu) {
         mainMenu->render(*this->window);
-    } else {
+    } else if (!inMenu || !inEndScreen) {
         //Hintergrund rendern
         this->window->draw(this->backgroundSprite);
 
@@ -140,7 +164,23 @@ void Game::render() {
         this->ai->render(*this->window);
         this->aiGUI->render(*this->window);
     }
+
+    if (!inMenu && inEndScreen) {
+        this->window->clear();
+        this->endScreen->render(*this->window);
+    }
     this->window->display();
+}
+
+void Game::restartGame() {
+    delete this->player;
+    delete this->ai;
+    delete this->playerGUI;
+    delete this->aiGUI;
+
+    this->initPlayer();
+    this->initAI();
+    this->inEndScreen = false;
 }
 
 /** Private */
@@ -184,7 +224,7 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    Weapon *playerWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/kurzhantel.png");
+    Weapon *playerWeapon = new Weapon("Kurzhantel", 100, 3.f, "../img/kurzhantel.png");
     this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon,
                                "../img/Spielertest.png");
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
@@ -201,8 +241,14 @@ void Game::initMainMenu() {
     if (!this->mainMenu) {
         std::cerr << "Fehler: mainMenu konnte nicht initialisiert werden!" << std::endl;
         exit(1);
-    } else {
-        std::cout << "Erfolg: mainMenu wurde korrekt initialisiert!" << std::endl;
     }
     this->inMenu = true;
+}
+
+void Game::initEndScreen() {
+    this->endScreen = new EndScreen(this->window->getSize().x, this->window->getSize().y);
+    if (!this->endScreen) {
+        std::cerr << "Fehler: endScreen konnte nicht initialisiert werden!" << std::endl;
+        exit(1);
+    }
 }

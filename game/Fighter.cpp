@@ -116,13 +116,8 @@ void Fighter::attack(Fighter &enemy) {
     if (this->xPos + 80 >= enemy.xPos && this->xPos - 80 <= enemy.xPos) {
         if (this->attackTimer >= this->attackCooldown) { // Attacke nur ausführen, wenn Cooldown vorbei ist
             enemy.health -= this->weapon.getDamage();
-            std::cout << "Angriff wurde ausgeführt!" << std::endl;
             this->attackTimer = 0; // Timer hier zurücksetzen
-        } else {
-            std::cout << "Angriff nicht möglich, Attack Timer: " << this->attackTimer << " / " << this->attackCooldown << std::endl;
         }
-    } else {
-        std::cout << "Gegner war nicht in reichweite" << std::endl;
     }
 }
 

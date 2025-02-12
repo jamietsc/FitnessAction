@@ -4,8 +4,8 @@
 
 #ifndef MAINMENU_H
 #define MAINMENU_H
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/Graphics/Text.hpp"
+#include "../cmake-build-debug/_deps/sfml-src/include/SFML/Graphics/RenderWindow.hpp"
+#include "../cmake-build-debug/_deps/sfml-src/include/SFML/Graphics/Text.hpp"
 
 
 class MainMenu {

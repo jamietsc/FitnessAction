@@ -10,8 +10,9 @@
 
 #include "Fighter.h"
 #include "AI.h"
+#include "../menus/EndScreen.h"
 #include "../GUI/PlayerGUI.h"
-#include "../GUI/MainMenu.h"
+#include "../menus/MainMenu.h"
 
 class MainMenu;
 /**
@@ -31,6 +32,7 @@ public:
     void pollEvents();
     void update();
     void render();
+    void restartGame();
 
 
 private:
@@ -60,6 +62,10 @@ private:
     MainMenu* mainMenu;
     bool inMenu = false;
 
+    //End Bildschirm
+    EndScreen* endScreen;
+    bool inEndScreen = false;
+
     //Private funktionen
     void initVariables();
     void scaleBackground();
@@ -67,6 +73,7 @@ private:
     void initPlayer();
     void initAI();
     void initMainMenu();
+    void initEndScreen();
 
 
 };
