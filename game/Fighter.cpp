@@ -20,6 +20,8 @@ Fighter::Fighter(sf::String name, int health, int velocity, float xPos, float yP
         std::cerr << "Error loading skin texture" << std::endl;
     }
     this->playerSprite.setTexture(this->playerTexture);
+
+    this->attackCooldown = weapon.getAttackSpeed();
 }
 
 Fighter::~Fighter() {
@@ -39,6 +41,12 @@ void Fighter::update(float deltaTime) {
     this->shape.setPosition(this->xPos, this->yPos);
     this->playerSprite.setPosition(this->xPos, this->yPos);
     this->weaponSprite.setPosition(this->xPos + 20, this->yPos + 20);
+
+    this->attackTimer += deltaTime; // Angriffstimer weiter hochzählen
+
+    if (this->attackTimer > this->attackCooldown) {
+        this->attackTimer = this->attackCooldown; // Begrenzen, aber nicht zurücksetzen!
+    }
 }
 
 void Fighter::render(sf::RenderTarget &target) {
@@ -104,13 +112,17 @@ void Fighter::jump() {
 }
 
 void Fighter::attack(Fighter &enemy) {
-    std::cout << "Spieler Gesundheit: " << this->health << std::endl;
-    std::cout << "Gegner Gesundheit: " << enemy.health << std::endl;
     //Zahlen anpassen um die Hitbox einzustellen
-    if (this->xPos + 60 >= enemy.xPos && this->xPos - 60 <= enemy.xPos) {
-        enemy.health -= this->weapon.getDamage();
+    if (this->xPos + 80 >= enemy.xPos && this->xPos - 80 <= enemy.xPos) {
+        if (this->attackTimer >= this->attackCooldown) { // Attacke nur ausführen, wenn Cooldown vorbei ist
+            enemy.health -= this->weapon.getDamage();
+            std::cout << "Angriff wurde ausgeführt!" << std::endl;
+            this->attackTimer = 0; // Timer hier zurücksetzen
+        } else {
+            std::cout << "Angriff nicht möglich, Attack Timer: " << this->attackTimer << " / " << this->attackCooldown << std::endl;
+        }
     } else {
-        std::cerr << "Gegner war nicht in der nähe" << std::endl;
+        std::cout << "Gegner war nicht in reichweite" << std::endl;
     }
 }
 

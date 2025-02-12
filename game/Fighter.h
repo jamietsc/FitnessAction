@@ -51,6 +51,9 @@ private:
     float acceleration = 1.1f; //Beschleunigung des Spielers
     float friction = 0.9f; //Reibung für langsames stoppen
 
+    float attackCooldown;
+    float attackTimer = 0.0f;
+
     //
     //bool isJumping = false;
 

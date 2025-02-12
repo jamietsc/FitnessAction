@@ -44,6 +44,6 @@ void AI::updateAI(float deltaTime, Fighter& player) {
         int dir = (rand() % 2 == 0) ? 1 : -1;
         this->move(dir, deltaTime);
     } else if (aiState == 2) {
-        this->attack(player);
+        //this->attack(player);
     }
 }

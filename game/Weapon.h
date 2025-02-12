@@ -18,6 +18,7 @@ public:
 
     //Getter
     int getDamage();
+    float getAttackSpeed();
 
 private:
     sf::String name;

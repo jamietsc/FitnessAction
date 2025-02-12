@@ -155,14 +155,14 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    Weapon *playerWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
+    Weapon *playerWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/kurzhantel.png");
     this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon, "../img/Spielertest.png");
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 
 }
 
 void Game::initAI() {
-    Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 5, "../img/kurzhantel.png");
+    Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/kurzhantel.png");
     this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }

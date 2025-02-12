@@ -29,3 +29,7 @@ void Weapon::render(sf::RenderTarget &target, float xPosPlayer, float yPosPlayer
 int Weapon::getDamage() {
     return this->damage;
 }
+
+float Weapon::getAttackSpeed() {
+    return this->attackSpeed;
+}
