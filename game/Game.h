@@ -13,6 +13,7 @@
 #include "../menus/EndScreen.h"
 #include "../GUI/PlayerGUI.h"
 #include "../menus/MainMenu.h"
+#include "../menus/CharacterMenu.h"
 
 class MainMenu;
 /**
@@ -60,7 +61,14 @@ private:
 
     //Main Menu
     MainMenu* mainMenu;
-    bool inMenu = false;
+    bool inMenu = true;
+
+    //Character Auswahl
+    CharacterMenu* characterMenu;
+    bool inCharacterMenu = false;
+
+    //Variable ob das Spiel aktiv ist
+    bool inGame = false;
 
     //End Bildschirm
     EndScreen* endScreen;
@@ -73,6 +81,7 @@ private:
     void initPlayer();
     void initAI();
     void initMainMenu();
+    void initCharacterMenu();
     void initEndScreen();
 
 

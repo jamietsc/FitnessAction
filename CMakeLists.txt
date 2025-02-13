@@ -30,6 +30,8 @@ add_executable(FitnessAction main.cpp
         menus/MainMenu.h
         menus/EndScreen.cpp
         menus/EndScreen.h
+        menus/CharacterMenu.cpp
+        menus/CharacterMenu.h
 )
 
 #SFML mit dem Projekt linken

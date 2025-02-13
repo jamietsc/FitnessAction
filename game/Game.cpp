@@ -16,6 +16,7 @@ Game::Game() {
     this->initPlayer();
     this->initAI();
     this->initMainMenu();
+    this->initCharacterMenu();
     this->initEndScreen();
 }
 
@@ -26,6 +27,7 @@ Game::~Game() {
     delete this->playerGUI;
     delete this->aiGUI;
     delete this->mainMenu;
+    delete this->characterMenu;
     delete this->endScreen;
 }
 
@@ -60,6 +62,7 @@ void Game::pollEvents() {
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
                         if (mainMenu->getSelectedItem() == 0) {
                             inMenu = false; // Spiel starten
+                            inCharacterMenu = true;
                         } else if (mainMenu->getSelectedItem() == 1) {
                             //Hier dann die Logik für die Optionen einfügen
                         } else if (mainMenu->getSelectedItem() == 2) {
@@ -69,8 +72,31 @@ void Game::pollEvents() {
                     }
             }
         }
+
+        //Steuerung für das Character Menü
+        if (inCharacterMenu){
+            switch (this->event.type) {
+                case sf::Event::KeyPressed:
+                    if (this->event.key.code == sf::Keyboard::Left){
+                        characterMenu->moveLeft();
+                    } else if (this->event.key.code == sf::Keyboard::Right) {
+                        characterMenu->moveRight();
+                    } else if (this->event.key.code == sf::Keyboard::Up) {
+                        characterMenu->moveUp();
+                    } else if (this->event.key.code == sf::Keyboard::Down) {
+                        characterMenu->moveDown();
+                    } else if (this->event.key.code == sf::Keyboard::Enter) {
+                        if(characterMenu->getSelectedLayer() == 4){
+                            inCharacterMenu = false;
+                            inGame = true;
+                        }
+                    }
+                    break;
+            }
+        }
+
         //Steuerung für das Spiel
-        if (!inMenu || !inEndScreen) {
+        if (inGame) {
             switch (this->event.type) {
                 case sf::Event::Closed:
                     this->window->close();
@@ -117,7 +143,8 @@ void Game::pollEvents() {
                         if (endScreen->getSelectedItem() == 0) {
                             restartGame();
                         } else if (endScreen->getSelectedItem() == 1) {
-                            //Logik für Charakter Auswahl einfügen
+                            inEndScreen = false;
+                            inCharacterMenu = true;
                         } else if (endScreen->getSelectedItem() == 2) {
                             this->window->close();
                         }
@@ -128,10 +155,9 @@ void Game::pollEvents() {
     }
 }
 
-
 void Game::update() {
     this->pollEvents();
-    if (!inMenu || !inEndScreen) {
+    if (inGame) {
         //Spieler aktualisieren
         this->player->update(dt);
         this->player->move(dirX, dt);
@@ -149,10 +175,18 @@ void Game::update() {
 
 void Game::render() {
     this->window->clear();
-
+    //Rendern des Start Menüs
     if (inMenu) {
         mainMenu->render(*this->window);
-    } else if (!inMenu || !inEndScreen) {
+    }
+
+    //Rendern des Menüs zur Charakterauswahl
+    if(inCharacterMenu){
+        characterMenu->render(*this->window);
+    }
+
+    //Rendern des Spiels
+    if (inGame) {
         //Hintergrund rendern
         this->window->draw(this->backgroundSprite);
 
@@ -165,7 +199,8 @@ void Game::render() {
         this->aiGUI->render(*this->window);
     }
 
-    if (!inMenu && inEndScreen) {
+    //Rendern des Endbildschirms
+    if (inEndScreen) {
         this->window->clear();
         this->endScreen->render(*this->window);
     }
@@ -192,6 +227,11 @@ void Game::initVariables() {
     this->ai = nullptr;
     this->playerGUI = nullptr;
     this->aiGUI = nullptr;
+
+    //Variablen für die Menüs
+    this->mainMenu = nullptr;
+    this->characterMenu = nullptr;
+    this->endScreen = nullptr;
 }
 
 void Game::scaleBackground() {
@@ -224,15 +264,15 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    Weapon *playerWeapon = new Weapon("Kurzhantel", 100, 3.f, "../img/kurzhantel.png");
+    Weapon *playerWeapon = new Weapon("Kurzhantel", 100, 3.f, "../img/weapons/kurzhantel.png");
     this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon,
-                               "../img/Spielertest.png");
+                               "../img/player/Spielertest.png");
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 }
 
 void Game::initAI() {
-    Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/kurzhantel.png");
-    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/Spielertest.png");
+    Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/weapons/kurzhantel.png");
+    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/player/Spielertest.png");
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
 
@@ -245,10 +285,20 @@ void Game::initMainMenu() {
     this->inMenu = true;
 }
 
+void Game::initCharacterMenu() {
+    this->characterMenu = new CharacterMenu(this->window->getSize().x, this->window->getSize().y);
+    if(!this->characterMenu){
+        std::cerr << "Fehler: characterMenu konnte nicht initialisiert werden!" << std::endl;
+        exit(1);
+    }
+    this->inCharacterMenu = false;
+}
+
 void Game::initEndScreen() {
     this->endScreen = new EndScreen(this->window->getSize().x, this->window->getSize().y);
     if (!this->endScreen) {
         std::cerr << "Fehler: endScreen konnte nicht initialisiert werden!" << std::endl;
         exit(1);
     }
+    this->inEndScreen = false;
 }
