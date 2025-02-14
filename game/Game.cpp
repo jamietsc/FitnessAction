@@ -20,13 +20,21 @@ Game::Game() {
 
 Game::~Game() {
     delete this->window;
+    this->window = nullptr;
     delete this->player;
+    this->player = nullptr;
     delete this->ai;
+    this->ai = nullptr;
     delete this->playerGUI;
+    this->playerGUI = nullptr;
     delete this->aiGUI;
+    this->aiGUI = nullptr;
     delete this->mainMenu;
+    this->mainMenu = nullptr;
     delete this->characterMenu;
+    this->characterMenu = nullptr;
     delete this->endScreen;
+    this->endScreen = nullptr;
 }
 
 //accessors
@@ -68,14 +76,16 @@ void Game::pollEvents() {
                         }
                         break;
                     }
+                default:
+                    break;
             }
         }
 
         //Steuerung für das Character Menü
-        if (inCharacterMenu){
+        if (inCharacterMenu) {
             switch (this->event.type) {
                 case sf::Event::KeyPressed:
-                    if (this->event.key.code == sf::Keyboard::Left){
+                    if (this->event.key.code == sf::Keyboard::Left) {
                         characterMenu->moveLeft();
                     } else if (this->event.key.code == sf::Keyboard::Right) {
                         characterMenu->moveRight();
@@ -84,13 +94,15 @@ void Game::pollEvents() {
                     } else if (this->event.key.code == sf::Keyboard::Down) {
                         characterMenu->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
-                        if(characterMenu->getSelectedLayer() == 4){
+                        if (characterMenu->getSelectedLayer() == 4) {
                             inCharacterMenu = false;
                             this->initPlayer();
                             this->initAI();
                             inGame = true;
                         }
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -124,6 +136,8 @@ void Game::pollEvents() {
                     break;
                 case sf::Event::Resized:
                     scaleBackground();
+                    break;
+                default:
                     break;
             }
         }
@@ -180,7 +194,7 @@ void Game::render() {
     }
 
     //Rendern des Menüs zur Charakterauswahl
-    if(inCharacterMenu){
+    if (inCharacterMenu) {
         characterMenu->render(*this->window);
     }
 
@@ -219,18 +233,23 @@ void Game::restartGame() {
 }
 
 void Game::goIntoCharacterMenu() {
-    std::cout << "Funktion wurde aufgeurfen" << std::endl;
-    delete this->player;
-    delete this->ai;
-    delete this->playerGUI;
-    delete this->aiGUI;
-    delete this->characterMenu;
+    // Lösche alle spielbezogenen Objekte, um Speicherlecks zu vermeiden
+    if (this->player) { delete this->player; this->player = nullptr; }
+    if (this->ai) { delete this->ai; this->ai = nullptr; }
+    if (this->playerGUI) { delete this->playerGUI; this->playerGUI = nullptr; }
+    if (this->aiGUI) { delete this->aiGUI; this->aiGUI = nullptr; }
+    if (this->endScreen) { delete this->endScreen; this->endScreen = nullptr; }
 
-    this->initCharacterMenu();
-
+    // Setze die Zustände zurück
+    this->inGame = false;
     this->inEndScreen = false;
-    this->inCharacterMenu = true;
+    this->inMenu = false;
+    this->inCharacterMenu = true; // Charaktermenü aktivieren
 
+    // Falls das Charaktermenü gelöscht wurde, neu initialisieren
+    if (!this->characterMenu) {
+        this->initCharacterMenu();
+    }
 }
 
 /** Private */
@@ -301,9 +320,8 @@ void Game::initMainMenu() {
 }
 
 void Game::initCharacterMenu() {
-    std::cout << "CharacterMenu wurde aufgeurfen" << std::endl;
     this->characterMenu = new CharacterMenu(this->window->getSize().x, this->window->getSize().y);
-    if(!this->characterMenu){
+    if (!this->characterMenu) {
         std::cerr << "Fehler: characterMenu konnte nicht initialisiert werden!" << std::endl;
         exit(1);
     }

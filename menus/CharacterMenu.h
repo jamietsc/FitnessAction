@@ -50,19 +50,17 @@ private:
     std::vector<sf::Vector2f> arrowRightPosition;
 
     std::vector<std::string> skinPaths = {
-            "../img/player/Spielertest.png"
+            "../img/player/spieler_blau.png",
+        "../img/player/spieler_gruen.png"
     };
 
     std::vector<std::string> weaponPaths = {
-            "../img/weapons/kurzhantel.png"
+            "../img/weapons/kurzhantel.png",
+            "../img/weapons/langhantel_hor.png"
     };
 
-
-
-
-
-    //Texturen  von Waffe und Spieler
-    sf::Texture playerTexture, weaponTexture;
+    //Texturen von Waffe und Spieler
+    sf::Texture firstPlayerTexture, secondPlayerTexture, firstWeaponTexture, secondWeaponTexture;
     sf::Sprite firstPlayerSprite, firstWeaponSprite, secondPlayerSprite, secondWeaponSprite;
 public:
     CharacterMenu(float width, float height);

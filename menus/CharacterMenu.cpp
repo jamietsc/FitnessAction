@@ -50,21 +50,24 @@ CharacterMenu::CharacterMenu(float width, float height) {
     secondPlayerWeaponBack.setPosition(width / 2 + 100, 450);
     secondPlayerWeaponBack.setSize(sf::Vector2f(150.f, 75.f));
 
+    //Zum überprüfen ob alle Spieler Bilder geladen werden können
     for (size_t i = 0; i < skinPaths.size(); i++) {
-        if (!this->playerTexture.loadFromFile(skinPaths[i])) {
+        if (!this->firstPlayerTexture.loadFromFile(skinPaths[i])) {
             std::cerr << "CharacterMenu: Fehler beim Laden der Skins" << std::endl;
         }
-        if (!this->weaponTexture.loadFromFile(weaponPaths[i])) {
+        if (!this->firstWeaponTexture.loadFromFile(weaponPaths[i])) {
             std::cerr << "CharacterMenu: Fehler beim Laden der Waffenskins." << std::endl;
         }
     }
-    playerTexture.loadFromFile(skinPaths[0]);
-    weaponTexture.loadFromFile(weaponPaths[0]);
+    firstPlayerTexture.loadFromFile(skinPaths[0]);
+    firstWeaponTexture.loadFromFile(weaponPaths[0]);
+    secondPlayerTexture.loadFromFile(skinPaths[0]);
+    secondWeaponTexture.loadFromFile(weaponPaths[0]);
 
-    firstPlayerSprite.setTexture(playerTexture);
-    firstWeaponSprite.setTexture(weaponTexture);
-    secondPlayerSprite.setTexture(playerTexture);
-    secondWeaponSprite.setTexture(weaponTexture);
+    firstPlayerSprite.setTexture(firstPlayerTexture);
+    firstWeaponSprite.setTexture(firstWeaponTexture);
+    secondPlayerSprite.setTexture(secondPlayerTexture);
+    secondWeaponSprite.setTexture(secondWeaponTexture);
 
     //Grafiken Spieler 1
     firstPlayerSprite.setOrigin(
@@ -129,7 +132,6 @@ CharacterMenu::CharacterMenu(float width, float height) {
             {secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x + 20,
                     secondPlayerWeaponBack.getPosition().y + (secondPlayerWeaponBack.getSize().y / 2)}
     };
-
     arrowLeft.setFont(font);
     arrowLeft.setString("<<");
     arrowLeft.setCharacterSize(20);
@@ -203,40 +205,40 @@ void CharacterMenu::moveDown() {
 void CharacterMenu::moveLeft() {
     switch (selectedLayer) {
         case 0:
-            if (selectedItemFirstCharacter - 1 < skinPaths.size()) {
+            if (selectedItemFirstCharacter == 0) {
                 selectedItemFirstCharacter = skinPaths.size();
             } else {
                 selectedItemFirstCharacter--;
             }
-            playerTexture.loadFromFile(skinPaths[selectedItemFirstCharacter]);
-            firstPlayerSprite.setTexture(playerTexture);
+            firstPlayerTexture.loadFromFile(skinPaths[selectedItemFirstCharacter]);
+            firstPlayerSprite.setTexture(firstPlayerTexture);
             break;
         case 1:
-            if (selectedItemFirstWeapon - 1 < weaponPaths.size()) {
+            if (selectedItemFirstWeapon == 0) {
                 selectedItemFirstWeapon = weaponPaths.size();
             } else {
                 selectedItemFirstWeapon--;
             }
-            weaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
-            firstWeaponSprite.setTexture(weaponTexture);
+            firstWeaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
+            firstWeaponSprite.setTexture(firstWeaponTexture);
             break;
         case 2:
-            if (selectedItemSecondCharacter - 1 < skinPaths.size()) {
+            if (selectedItemSecondCharacter == 0) {
                 selectedItemSecondCharacter = skinPaths.size();
             } else {
                 selectedItemSecondCharacter--;
             }
-            playerTexture.loadFromFile(skinPaths[selectedItemSecondCharacter]);
-            secondPlayerSprite.setTexture(playerTexture);
+            secondPlayerTexture.loadFromFile(skinPaths[selectedItemSecondCharacter]);
+            secondPlayerSprite.setTexture(secondPlayerTexture);
             break;
         case 3:
-            if (selectedItemSecondWeapon - 1 < weaponPaths.size()) {
+            if (selectedItemSecondWeapon == 0) {
                 selectedItemSecondWeapon = weaponPaths.size();
             } else {
                 selectedItemSecondWeapon--;
             }
-            weaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
-            secondWeaponSprite.setTexture(weaponTexture);
+            secondWeaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
+            secondWeaponSprite.setTexture(secondWeaponTexture);
             break;
         default:
             break;
@@ -246,40 +248,40 @@ void CharacterMenu::moveLeft() {
 void CharacterMenu::moveRight() {
     switch (selectedLayer) {
         case 0:
-            if (selectedItemFirstCharacter + 1 > skinPaths.size()) {
+            if (selectedItemFirstCharacter + 1 == skinPaths.size()) {
                 selectedItemFirstCharacter = 0;
             } else {
                 selectedItemFirstCharacter++;
             }
-            playerTexture.loadFromFile(skinPaths[selectedItemFirstCharacter]);
-            firstPlayerSprite.setTexture(playerTexture);
+            firstPlayerTexture.loadFromFile(skinPaths[selectedItemFirstCharacter]);
+            firstPlayerSprite.setTexture(firstPlayerTexture);
             break;
         case 1:
-            if (selectedItemFirstWeapon + 1 > weaponPaths.size()) {
+            if (selectedItemFirstWeapon + 1 == weaponPaths.size()) {
                 selectedItemFirstWeapon = 0;
             } else {
                 selectedItemFirstWeapon++;
             }
-            weaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
-            firstWeaponSprite.setTexture(weaponTexture);
+            firstWeaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
+            firstWeaponSprite.setTexture(firstWeaponTexture);
             break;
         case 2:
-            if (selectedItemSecondCharacter + 1 > skinPaths.size()) {
+            if (selectedItemSecondCharacter + 1 == skinPaths.size()) {
                 selectedItemSecondCharacter = 0;
             } else {
                 selectedItemSecondCharacter++;
             }
-            playerTexture.loadFromFile(skinPaths[selectedItemSecondCharacter]);
-            secondPlayerSprite.setTexture(playerTexture);
+            secondPlayerTexture.loadFromFile(skinPaths[selectedItemSecondCharacter]);
+            secondPlayerSprite.setTexture(secondPlayerTexture);
             break;
         case 3:
-            if (selectedItemSecondWeapon + 1 > weaponPaths.size()) {
+            if (selectedItemSecondWeapon + 1 == weaponPaths.size()) {
                 selectedItemSecondWeapon = 0;
             } else {
                 selectedItemSecondWeapon++;
             }
-            weaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
-            secondWeaponSprite.setTexture(weaponTexture);
+            secondWeaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
+            secondWeaponSprite.setTexture(secondWeaponTexture);
             break;
         default:
             break;
