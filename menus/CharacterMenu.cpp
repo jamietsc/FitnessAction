@@ -293,7 +293,7 @@ void CharacterMenu::moveLeft() {
     switch (selectedLayer) {
         case 0:
             if (selectedItemFirstCharacter == 0) {
-                selectedItemFirstCharacter = skinPaths.size();
+                selectedItemFirstCharacter = skinPaths.size() - 1;
             } else {
                 selectedItemFirstCharacter--;
             }
@@ -302,7 +302,7 @@ void CharacterMenu::moveLeft() {
             break;
         case 1:
             if (selectedItemFirstWeapon == 0) {
-                selectedItemFirstWeapon = weaponPaths.size();
+                selectedItemFirstWeapon = weaponPaths.size() - 1;
             } else {
                 selectedItemFirstWeapon--;
             }
@@ -312,11 +312,10 @@ void CharacterMenu::moveLeft() {
                                            weaponStats[selectedItemFirstWeapon].damage,
                                            weaponStats[selectedItemFirstWeapon].attackSpeed,
                                            weaponPaths[selectedItemFirstWeapon]);
-
             break;
         case 2:
             if (selectedItemSecondCharacter == 0) {
-                selectedItemSecondCharacter = skinPaths.size();
+                selectedItemSecondCharacter = skinPaths.size() - 1;
             } else {
                 selectedItemSecondCharacter--;
             }
@@ -325,7 +324,7 @@ void CharacterMenu::moveLeft() {
             break;
         case 3:
             if (selectedItemSecondWeapon == 0) {
-                selectedItemSecondWeapon = weaponPaths.size();
+                selectedItemSecondWeapon = weaponPaths.size() - 1;
             } else {
                 selectedItemSecondWeapon--;
             }
