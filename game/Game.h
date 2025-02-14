@@ -34,6 +34,7 @@ public:
     void update();
     void render();
     void restartGame();
+    void goIntoCharacterMenu();
 
 
 private:

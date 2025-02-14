@@ -286,20 +286,20 @@ void CharacterMenu::moveRight() {
     }
 }
 
-int CharacterMenu::getSelectedFirstCharacter() {
-    return 0;
+std::string CharacterMenu::getSelectedFirstCharacter() {
+    return skinPaths[selectedItemFirstCharacter];
 }
 
-int CharacterMenu::getSelectedFirstWeapon() {
-    return 0;
+std::string CharacterMenu::getSelectedFirstWeapon() {
+    return weaponPaths[selectedItemFirstWeapon];
 }
 
-int CharacterMenu::getSelectedSecondCharacter() {
-    return 0;
+std::string CharacterMenu::getSelectedSecondCharacter() {
+    return skinPaths[selectedItemSecondCharacter];
 }
 
-int CharacterMenu::getSelectedSecondWeapon() {
-    return 0;
+std::string CharacterMenu::getSelectedSecondWeapon() {
+    return weaponPaths[selectedItemSecondWeapon];
 }
 
 int CharacterMenu::getSelectedLayer() {

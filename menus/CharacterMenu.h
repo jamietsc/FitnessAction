@@ -72,10 +72,10 @@ public:
     void moveLeft();
     void moveRight();
 
-    int getSelectedFirstCharacter();
-    int getSelectedFirstWeapon();
-    int getSelectedSecondCharacter();
-    int getSelectedSecondWeapon();
+    std::string getSelectedFirstCharacter();
+    std::string getSelectedFirstWeapon();
+    std::string getSelectedSecondCharacter();
+    std::string getSelectedSecondWeapon();
     int getSelectedLayer();
 };
 

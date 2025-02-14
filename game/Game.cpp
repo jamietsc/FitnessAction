@@ -13,8 +13,6 @@ int dirX = 0;
 Game::Game() {
     this->initVariables();
     this->initWindow();
-    this->initPlayer();
-    this->initAI();
     this->initMainMenu();
     this->initCharacterMenu();
     this->initEndScreen();
@@ -88,6 +86,8 @@ void Game::pollEvents() {
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
                         if(characterMenu->getSelectedLayer() == 4){
                             inCharacterMenu = false;
+                            this->initPlayer();
+                            this->initAI();
                             inGame = true;
                         }
                     }
@@ -143,8 +143,7 @@ void Game::pollEvents() {
                         if (endScreen->getSelectedItem() == 0) {
                             restartGame();
                         } else if (endScreen->getSelectedItem() == 1) {
-                            inEndScreen = false;
-                            inCharacterMenu = true;
+                            goIntoCharacterMenu();
                         } else if (endScreen->getSelectedItem() == 2) {
                             this->window->close();
                         }
@@ -216,6 +215,22 @@ void Game::restartGame() {
     this->initPlayer();
     this->initAI();
     this->inEndScreen = false;
+    this->inGame = true;
+}
+
+void Game::goIntoCharacterMenu() {
+    std::cout << "Funktion wurde aufgeurfen" << std::endl;
+    delete this->player;
+    delete this->ai;
+    delete this->playerGUI;
+    delete this->aiGUI;
+    delete this->characterMenu;
+
+    this->initCharacterMenu();
+
+    this->inEndScreen = false;
+    this->inCharacterMenu = true;
+
 }
 
 /** Private */
@@ -264,15 +279,15 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    Weapon *playerWeapon = new Weapon("Kurzhantel", 100, 3.f, "../img/weapons/kurzhantel.png");
+    Weapon *playerWeapon = new Weapon("xx", 100, 3.f, characterMenu->getSelectedFirstWeapon());
     this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon,
-                               "../img/player/Spielertest.png");
+                               characterMenu->getSelectedFirstCharacter());
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 }
 
 void Game::initAI() {
-    Weapon *aiWeapon = new Weapon("Kurzhantel", 5, 3.f, "../img/weapons/kurzhantel.png");
-    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, "../img/player/Spielertest.png");
+    Weapon *aiWeapon = new Weapon("xx", 5, 3.f, characterMenu->getSelectedSecondWeapon());
+    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, characterMenu->getSelectedSecondCharacter());
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
 
@@ -286,6 +301,7 @@ void Game::initMainMenu() {
 }
 
 void Game::initCharacterMenu() {
+    std::cout << "CharacterMenu wurde aufgeurfen" << std::endl;
     this->characterMenu = new CharacterMenu(this->window->getSize().x, this->window->getSize().y);
     if(!this->characterMenu){
         std::cerr << "Fehler: characterMenu konnte nicht initialisiert werden!" << std::endl;
