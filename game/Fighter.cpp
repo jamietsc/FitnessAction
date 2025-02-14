@@ -7,9 +7,9 @@
 const float groundYCor = 500.0f;
 
 
-Fighter::Fighter(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity,
+Fighter::Fighter(int health, int velocity, float xPos, float yPos, float velocityY,
                  Weapon weapon, sf::String skinPath)
-    : name(name), health(health), velocity(velocity), xPos(xPos), yPos(yPos), velocityY(velocityY), gravity(gravity),
+    : health(health), velocity(velocity), xPos(xPos), yPos(yPos), velocityY(velocityY),
       weapon(weapon), skinPath(skinPath) {
     //Initialisierung der Form
     this->shape.setSize(sf::Vector2f(50.f, 50.f));

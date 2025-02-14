@@ -17,7 +17,7 @@ private:
 
 
 public:
-    AI(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity, Weapon weapon, sf::String skinPath);
+    AI(int health, int velocity, float xPos, float yPos, float velocityY, Weapon weapon, sf::String skinPath);
     void update(float dt, Fighter& player);
 };
 

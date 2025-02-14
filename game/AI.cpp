@@ -4,9 +4,9 @@
 
 #include "AI.h"
 
-AI::AI(sf::String name, int health, int velocity, float xPos, float yPos, float velocityY, Gravity gravity,
+AI::AI(int health, int velocity, float xPos, float yPos, float velocityY,
        Weapon weapon, sf::String skinPath)
-    : Fighter(name, health, velocity, xPos, yPos, velocityY, gravity, weapon, skinPath) {
+    : Fighter(health, velocity, xPos, yPos, velocityY, weapon, skinPath) {
     this->aiTimer = 0.f;
     this->aiState = 0; // 0 = stehen, 1 = Bewegung, 2 = Angreifen
 }
@@ -20,7 +20,7 @@ void AI::updateAI(float deltaTime, Fighter& player) {
     aiTimer += deltaTime;
 
     //Alle 2 Sekunden neue Aktion wählen
-    if (aiTimer >= 2.f) {
+    if (aiTimer >= 1.5f) {
         aiTimer = 0.f;
 
         int randomAction = rand() % 3; // Zufällige Aktion für die oben beschriebenen Zahlen

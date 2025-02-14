@@ -54,10 +54,12 @@ private:
 
     //spieler
     Fighter* player; //zeige auf den Spieler
+    Weapon* playerWeapon; //Zeige auf die Waffe des Spielers
     PlayerGUI* playerGUI; //Zeige auf playerGui
 
     //AI
     AI* ai; //Zeigt auf die AI
+    Weapon* aiWeapon; //Zeige auf die Waffe der AI
     PlayerGUI* aiGUI; //Zeigt auf aiGUI
 
     //Main Menu

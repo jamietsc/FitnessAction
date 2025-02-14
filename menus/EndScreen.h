@@ -12,6 +12,9 @@ class EndScreen {
 private:
     sf::Font font;
     sf::Text title;
+
+    sf::Text message;
+
     sf::Text playAgainButton;
     sf::Text differentCharacters;
     sf::Text exitButton;
@@ -24,6 +27,9 @@ public:
     void moveUp();
     void moveDown();
     int getSelectedItem();
+
+    //TextFunktionen
+    void winnerMessage(int winner); //0 = Spieler hat gewonnen, 1 = Computer hat gewonnen
 };
 
 

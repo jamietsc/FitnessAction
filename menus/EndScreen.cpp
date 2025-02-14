@@ -20,6 +20,13 @@ EndScreen::EndScreen(float width, float height) {
     title.setFillColor(sf::Color::White);
     title.setPosition(width / 2 - 100, 100);
 
+    //Gewonnen anzeige
+    message.setFont(font);
+    message.setString("");
+    message.setCharacterSize(30);
+    message.setFillColor(sf::Color::Yellow);
+    message.setPosition(width / 2 - 380, 350);
+
     //Erneut Spielen Knopf
     playAgainButton.setFont(font);
     playAgainButton.setString("Erneut spielen");
@@ -46,6 +53,7 @@ EndScreen::EndScreen(float width, float height) {
 
 void EndScreen::render(sf::RenderWindow &window) {
     window.draw(title);
+    window.draw(message);
     window.draw(playAgainButton);
     window.draw(differentCharacters);
     window.draw(exitButton);
@@ -104,4 +112,13 @@ void EndScreen::moveDown() {
 
 int EndScreen::getSelectedItem() {
     return this->selectedItemIndex;
+}
+
+void EndScreen::winnerMessage(int winner) {
+    if (winner == 0) {
+        message.setString("Sie haben gewonnen!");
+    }
+    else if (winner == 1) {
+        message.setString("Sie haben verloren!");
+    }
 }

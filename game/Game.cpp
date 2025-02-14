@@ -180,8 +180,12 @@ void Game::update() {
         this->ai->update(dt, *player);
         this->aiGUI->update(dt);
 
-        if (ai->isDead() || player->isDead()) {
+        if (ai->isDead()) {
+            endScreen->winnerMessage(1);
             this->inEndScreen = true;
+        } else if (player->isDead()) {
+            endScreen->winnerMessage(0);
+            this->inGame = true;
         }
     }
 }
@@ -299,14 +303,13 @@ void Game::initWindow() {
 
 void Game::initPlayer() {
     Weapon *playerWeapon = new Weapon("xx", 100, 3.f, characterMenu->getSelectedFirstWeapon());
-    this->player = new Fighter("Spieler1", 100, 3, 100.0, 500.0, 0.0f, 9.8f, *playerWeapon,
-                               characterMenu->getSelectedFirstCharacter());
+    this->player = new Fighter(100, 3, 100.0, 500.0, 0.0f, *playerWeapon, characterMenu->getSelectedFirstCharacter());
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 }
 
 void Game::initAI() {
-    Weapon *aiWeapon = new Weapon("xx", 5, 3.f, characterMenu->getSelectedSecondWeapon());
-    this->ai = new AI("AI", 100, 3, 400.0, 500.0, 0.0f, 9.8f, *aiWeapon, characterMenu->getSelectedSecondCharacter());
+    Weapon *aiWeapon = new Weapon("xx", 20, 3.f, characterMenu->getSelectedSecondWeapon());
+    this->ai = new AI(100, 3, 400.0, 500.0, 0.0f, *aiWeapon, characterMenu->getSelectedSecondCharacter());
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
 

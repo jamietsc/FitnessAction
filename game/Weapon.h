@@ -12,8 +12,6 @@
 class Weapon {
 public:
     Weapon(const sf::String& name, int damage, float attackSpeed, const sf::String weaponTexture);
-
-    void use();
     void render(sf::RenderTarget& target, float xPosPlayer, float yPosPlayer);
 
     //Getter
