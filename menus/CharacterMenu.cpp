@@ -5,6 +5,20 @@
 #include <iostream>
 #include "CharacterMenu.h"
 
+#include <cmath>
+
+void CharacterMenu::showNewStats() {
+    if (selectedLayer == 1) {
+        firstName.setString(weaponStats[selectedItemFirstWeapon].name);
+        firstDamage.setString("Schaden: " + std::to_string(weaponStats[selectedItemFirstWeapon].damage));
+        firstAttackSpeed.setString("Geschwindigkeit: " + std::format("{:.1f}", weaponStats[selectedItemFirstWeapon].attackSpeed));
+    } else if (selectedLayer == 3) {
+        secondName.setString(weaponStats[selectedItemSecondWeapon].name);
+        secondDamage.setString("Schaden: " +std::to_string(weaponStats[selectedItemSecondWeapon].damage));
+        secondAttackSpeed.setString("Geschwindigkeit: " + std::format("{:.1f}", weaponStats[selectedItemSecondWeapon].attackSpeed));
+    }
+}
+
 CharacterMenu::CharacterMenu(float width, float height) {
     if (!font.loadFromFile("../fonts/STENCIL.TTF")) {
         std::cerr << "CharacterMenu: Laden der Schriftart Fehlgeschlagen." << std::endl;
@@ -71,66 +85,82 @@ CharacterMenu::CharacterMenu(float width, float height) {
 
     //Grafiken Spieler 1
     firstPlayerSprite.setOrigin(
-            firstPlayerSprite.getLocalBounds().width / 2,
-            firstPlayerSprite.getLocalBounds().height / 2
+        firstPlayerSprite.getLocalBounds().width / 2,
+        firstPlayerSprite.getLocalBounds().height / 2
     );
     firstPlayerSprite.setScale(2.f, 2.f);
     firstPlayerSprite.setPosition(
-            firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x / 2,
-            firstPlayerCharcterBack.getPosition().y + firstPlayerCharcterBack.getSize().y / 2
+        firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x / 2,
+        firstPlayerCharcterBack.getPosition().y + firstPlayerCharcterBack.getSize().y / 2
     );
 
     firstWeaponSprite.setOrigin(
-            firstWeaponSprite.getLocalBounds().width / 2,
-            firstWeaponSprite.getLocalBounds().height / 2
+        firstWeaponSprite.getLocalBounds().width / 2,
+        firstWeaponSprite.getLocalBounds().height / 2
     );
     firstWeaponSprite.setScale(2.f, 2.f);
     firstWeaponSprite.setPosition(
-            firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x / 2,
-            firstPlayerWeaponBack.getPosition().y + firstPlayerWeaponBack.getSize().y / 2
+        firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x / 2,
+        firstPlayerWeaponBack.getPosition().y + firstPlayerWeaponBack.getSize().y / 2
     );
 
     //Spieler 2
     secondPlayerSprite.setOrigin(
-            secondPlayerSprite.getLocalBounds().width / 2,
-            secondPlayerSprite.getLocalBounds().height / 2
+        secondPlayerSprite.getLocalBounds().width / 2,
+        secondPlayerSprite.getLocalBounds().height / 2
     );
     secondPlayerSprite.setScale(2.f, 2.f);
     secondPlayerSprite.setPosition(
-            secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x / 2,
-            secondPlayerCharacterBack.getPosition().y + secondPlayerCharacterBack.getSize().y / 2
+        secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x / 2,
+        secondPlayerCharacterBack.getPosition().y + secondPlayerCharacterBack.getSize().y / 2
     );
 
     secondWeaponSprite.setOrigin(
-            secondWeaponSprite.getLocalBounds().width / 2,
-            secondWeaponSprite.getLocalBounds().height / 2
+        secondWeaponSprite.getLocalBounds().width / 2,
+        secondWeaponSprite.getLocalBounds().height / 2
     );
     secondWeaponSprite.setScale(2.f, 2.f);
     secondWeaponSprite.setPosition(
-            secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x / 2,
-            secondPlayerWeaponBack.getPosition().y + secondPlayerWeaponBack.getSize().y / 2
+        secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x / 2,
+        secondPlayerWeaponBack.getPosition().y + secondPlayerWeaponBack.getSize().y / 2
     );
 
     arrowLeftPosition = {
-            {firstPlayerCharcterBack.getPosition().x - 50,
-                    firstPlayerCharcterBack.getPosition().y + (firstPlayerCharcterBack.getSize().y / 2)},
-            {firstPlayerWeaponBack.getPosition().x - 50,
-                    firstPlayerWeaponBack.getPosition().y + (firstPlayerWeaponBack.getSize().y / 2)},
-            {secondPlayerCharacterBack.getPosition().x - 50,
-                    secondPlayerCharacterBack.getPosition().y + (secondPlayerCharacterBack.getSize().y / 2)},
-            {secondPlayerWeaponBack.getPosition().x - 50,
-                    secondPlayerWeaponBack.getPosition().y + (secondPlayerWeaponBack.getSize().y / 2)}
+        {
+            firstPlayerCharcterBack.getPosition().x - 50,
+            firstPlayerCharcterBack.getPosition().y + (firstPlayerCharcterBack.getSize().y / 2)
+        },
+        {
+            firstPlayerWeaponBack.getPosition().x - 50,
+            firstPlayerWeaponBack.getPosition().y + (firstPlayerWeaponBack.getSize().y / 2)
+        },
+        {
+            secondPlayerCharacterBack.getPosition().x - 50,
+            secondPlayerCharacterBack.getPosition().y + (secondPlayerCharacterBack.getSize().y / 2)
+        },
+        {
+            secondPlayerWeaponBack.getPosition().x - 50,
+            secondPlayerWeaponBack.getPosition().y + (secondPlayerWeaponBack.getSize().y / 2)
+        }
     };
 
     arrowRightPosition = {
-            {firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x + 20,
-                    firstPlayerCharcterBack.getPosition().y + (firstPlayerCharcterBack.getSize().y / 2)},
-            {firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x + 20,
-                    firstPlayerWeaponBack.getPosition().y + (firstPlayerWeaponBack.getSize().y / 2)},
-            {secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x + 20,
-                    secondPlayerCharacterBack.getPosition().y + (secondPlayerCharacterBack.getSize().y / 2)},
-            {secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x + 20,
-                    secondPlayerWeaponBack.getPosition().y + (secondPlayerWeaponBack.getSize().y / 2)}
+        {
+            firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x + 20,
+            firstPlayerCharcterBack.getPosition().y + (firstPlayerCharcterBack.getSize().y / 2)
+        },
+        {
+            firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x + 20,
+            firstPlayerWeaponBack.getPosition().y + (firstPlayerWeaponBack.getSize().y / 2)
+        },
+        {
+            secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x + 20,
+            secondPlayerCharacterBack.getPosition().y + (secondPlayerCharacterBack.getSize().y / 2)
+        },
+        {
+            secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x + 20,
+            secondPlayerWeaponBack.getPosition().y + (secondPlayerWeaponBack.getSize().y / 2)
+        }
     };
     arrowLeft.setFont(font);
     arrowLeft.setString("<<");
@@ -149,9 +179,56 @@ CharacterMenu::CharacterMenu(float width, float height) {
     enterButton.setCharacterSize(30);
     enterButton.setFillColor(sf::Color::White);
     enterButton.setPosition(
-            width / 2 - 125,
-            height - 50
-            );
+        width / 2 - 125,
+        height - 50
+    );
+
+    firstPlayerWeapon = new Weapon(weaponStats[0].name, weaponStats[0].damage, weaponStats[0].attackSpeed,
+                                   weaponPaths[0]);
+    secondPlayerWeapon = new Weapon(weaponStats[0].name, weaponStats[0].damage, weaponStats[0].attackSpeed,
+                                    weaponPaths[0]);
+
+    // Erster Spieler Waffen-Stats
+    firstName.setFont(font);
+    firstName.setString(weaponStats[0].name);
+    firstName.setCharacterSize(15);
+    firstName.setFillColor(sf::Color::White);
+    firstName.setPosition(firstPlayerCharcterBack.getPosition().x + 170, firstPlayerCharcterBack.getPosition().y);
+
+    firstDamage.setFont(font);
+    firstDamage.setString("Schaden: " + std::to_string(weaponStats[0].damage));
+    firstDamage.setCharacterSize(15);
+    firstDamage.setFillColor(sf::Color::White);
+    firstDamage.setPosition(firstPlayerCharcterBack.getPosition().x + 170,
+                            firstPlayerCharcterBack.getPosition().y + 30);
+
+    firstAttackSpeed.setFont(font);
+    firstAttackSpeed.setString("Angriffsgeschw.: " + std::format("{:.1f}", weaponStats[0].attackSpeed));
+    firstAttackSpeed.setCharacterSize(15);
+    firstAttackSpeed.setFillColor(sf::Color::White);
+    firstAttackSpeed.setPosition(firstPlayerCharcterBack.getPosition().x + 170,
+                                 firstPlayerCharcterBack.getPosition().y + 60);
+
+    // Zweiter Spieler Waffen-Stats
+    secondName.setFont(font);
+    secondName.setString(weaponStats[0].name);
+    secondName.setCharacterSize(15);
+    secondName.setFillColor(sf::Color::White);
+    float secondPlayerLeft = secondPlayerCharacterBack.getPosition().x - 20;
+    secondName.setPosition(secondPlayerLeft - secondName.getLocalBounds().width, secondPlayerCharacterBack.getPosition().y);
+
+    secondDamage.setFont(font);
+    secondDamage.setString("Schaden: " + std::to_string(weaponStats[0].damage));
+    secondDamage.setCharacterSize(15);
+    secondDamage.setFillColor(sf::Color::White);
+    secondDamage.setPosition(secondPlayerLeft - secondDamage.getLocalBounds().width, secondPlayerCharacterBack.getPosition().y + 30);
+
+    secondAttackSpeed.setFont(font);
+    secondAttackSpeed.setString("Angriffsgeschw.: " + std::format("{:.1f}", weaponStats[0].attackSpeed));
+    secondAttackSpeed.setCharacterSize(15);
+    secondAttackSpeed.setFillColor(sf::Color::White);
+    secondAttackSpeed.setPosition(secondPlayerLeft - secondAttackSpeed.getLocalBounds().width, secondPlayerCharacterBack.getPosition().y + 60);
+
 }
 
 void CharacterMenu::render(sf::RenderWindow &window) {
@@ -171,11 +248,22 @@ void CharacterMenu::render(sf::RenderWindow &window) {
     window.draw(arrowLeft);
     window.draw(arrowRight);
 
+    if (selectedLayer == 1) {
+        window.draw(firstName);
+        window.draw(firstDamage);
+        window.draw(firstAttackSpeed);
+    }
+    if (selectedLayer == 3) {
+        window.draw(secondName);
+        window.draw(secondDamage);
+        window.draw(secondAttackSpeed);
+    }
+
     window.draw(enterButton);
 }
 
 void CharacterMenu::moveUp() {
-    if(selectedLayer == 4){
+    if (selectedLayer == 4) {
         arrowLeft.setFillColor(sf::Color::White);
         arrowRight.setFillColor(sf::Color::White);
         enterButton.setFillColor(sf::Color::White);
@@ -193,7 +281,6 @@ void CharacterMenu::moveDown() {
         selectedLayer++;
         arrowLeft.setPosition(arrowLeftPosition[selectedLayer]);
         arrowRight.setPosition(arrowRightPosition[selectedLayer]);
-
     } else if (selectedLayer == 3) {
         selectedLayer++;
         arrowLeft.setFillColor(sf::Color::Transparent);
@@ -221,6 +308,11 @@ void CharacterMenu::moveLeft() {
             }
             firstWeaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
             firstWeaponSprite.setTexture(firstWeaponTexture);
+            firstPlayerWeapon = new Weapon(weaponStats[selectedItemFirstWeapon].name,
+                                           weaponStats[selectedItemFirstWeapon].damage,
+                                           weaponStats[selectedItemFirstWeapon].attackSpeed,
+                                           weaponPaths[selectedItemFirstWeapon]);
+
             break;
         case 2:
             if (selectedItemSecondCharacter == 0) {
@@ -239,10 +331,15 @@ void CharacterMenu::moveLeft() {
             }
             secondWeaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
             secondWeaponSprite.setTexture(secondWeaponTexture);
+            secondPlayerWeapon = new Weapon(weaponStats[selectedItemSecondWeapon].name,
+                                            weaponStats[selectedItemSecondWeapon].damage,
+                                            weaponStats[selectedItemSecondWeapon].attackSpeed,
+                                            weaponPaths[selectedItemSecondWeapon]);
             break;
         default:
             break;
     }
+    showNewStats();
 }
 
 void CharacterMenu::moveRight() {
@@ -264,6 +361,10 @@ void CharacterMenu::moveRight() {
             }
             firstWeaponTexture.loadFromFile(weaponPaths[selectedItemFirstWeapon]);
             firstWeaponSprite.setTexture(firstWeaponTexture);
+            firstPlayerWeapon = new Weapon(weaponStats[selectedItemFirstWeapon].name,
+                                           weaponStats[selectedItemFirstWeapon].damage,
+                                           weaponStats[selectedItemFirstWeapon].attackSpeed,
+                                           weaponPaths[selectedItemFirstWeapon]);
             break;
         case 2:
             if (selectedItemSecondCharacter + 1 == skinPaths.size()) {
@@ -282,10 +383,15 @@ void CharacterMenu::moveRight() {
             }
             secondWeaponTexture.loadFromFile(weaponPaths[selectedItemSecondWeapon]);
             secondWeaponSprite.setTexture(secondWeaponTexture);
+            secondPlayerWeapon = new Weapon(weaponStats[selectedItemSecondWeapon].name,
+                                            weaponStats[selectedItemSecondWeapon].damage,
+                                            weaponStats[selectedItemSecondWeapon].attackSpeed,
+                                            weaponPaths[selectedItemSecondWeapon]);
             break;
         default:
             break;
     }
+    showNewStats();
 }
 
 std::string CharacterMenu::getSelectedFirstCharacter() {
@@ -306,4 +412,12 @@ std::string CharacterMenu::getSelectedSecondWeapon() {
 
 int CharacterMenu::getSelectedLayer() {
     return selectedLayer;
+}
+
+Weapon *CharacterMenu::getFirstWeapon() {
+    return firstPlayerWeapon;
+}
+
+Weapon *CharacterMenu::getSecondWeapon() {
+    return secondPlayerWeapon;
 }

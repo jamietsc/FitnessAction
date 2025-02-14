@@ -11,7 +11,7 @@
 
 class Weapon {
 public:
-    Weapon(const sf::String& name, int damage, float attackSpeed, const sf::String weaponTexture);
+    Weapon(std::string name, int damage, float attackSpeed, const sf::String weaponTexture);
     void render(sf::RenderTarget& target, float xPosPlayer, float yPosPlayer);
 
     //Getter
@@ -19,7 +19,7 @@ public:
     float getAttackSpeed();
 
 private:
-    sf::String name;
+    std::string name;
     int damage;
     float attackSpeed;
     sf::Texture weaponTexture;

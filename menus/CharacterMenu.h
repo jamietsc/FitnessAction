@@ -12,7 +12,14 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
 #include <iostream>
+#include "../game/Weapon.h"
 #include <SFML/Graphics/Sprite.hpp>
+
+struct weaponStats {
+    std::string name;
+    int damage;
+    float attackSpeed;
+};
 
 class CharacterMenu {
 private:
@@ -28,7 +35,7 @@ private:
 
     /** Zweiter Spieler **/
     sf::Text secondPlayerText;
-    //Charakter Auswahl f
+    //Charakter Auswahl
     sf::RectangleShape secondPlayerCharacterBack;
     //Waffenauswahl
     sf::RectangleShape secondPlayerWeaponBack;
@@ -59,9 +66,23 @@ private:
             "../img/weapons/langhantel_hor.png"
     };
 
+    std::vector<weaponStats> weaponStats = {
+        {"Kurzhantel", 10, 2.0}, //Stats für die Kurzhantel
+        {"Langhantel", 20, 4.0} //Stats für die Langhantel
+    };
+
+    sf::RectangleShape firstWeaponStats, secondWeaponsStats;
+    sf::Text firstName, firstDamage, firstAttackSpeed, secondName, secondDamage, secondAttackSpeed;
+
+    //Waffenobjekte um diese ins Game zu laden
+    Weapon* firstPlayerWeapon;
+    Weapon* secondPlayerWeapon;
+
     //Texturen von Waffe und Spieler
     sf::Texture firstPlayerTexture, secondPlayerTexture, firstWeaponTexture, secondWeaponTexture;
     sf::Sprite firstPlayerSprite, firstWeaponSprite, secondPlayerSprite, secondWeaponSprite;
+
+    void showNewStats();
 public:
     CharacterMenu(float width, float height);
     void render(sf::RenderWindow &window);
@@ -75,6 +96,9 @@ public:
     std::string getSelectedSecondCharacter();
     std::string getSelectedSecondWeapon();
     int getSelectedLayer();
+
+    Weapon* getFirstWeapon();
+    Weapon* getSecondWeapon();
 };
 
 

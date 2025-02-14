@@ -9,7 +9,7 @@
 
 #include "SFML/Graphics/RenderTarget.hpp"
 
-Weapon::Weapon(const sf::String &name, int damage, float attackSpeed, const sf::String weaponTexture)
+Weapon::Weapon(std::string name, int damage, float attackSpeed, const sf::String weaponTexture)
     : name(name), damage(damage), attackSpeed(attackSpeed){
     if (!this->weaponTexture.loadFromFile(weaponTexture)) {
         std::cerr << "error while loading the weapon image" << std::endl;
