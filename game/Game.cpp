@@ -316,7 +316,7 @@ void Game::initWindow() {
     this->window = new sf::RenderWindow(this->videoMode, "FitnessAction", sf::Style::Titlebar | sf::Style::Close);
 
     //Hintergrundbild laden
-    if (!this->backgroundTexture.loadFromFile("../img/background.JPG")) {
+    if (!this->backgroundTexture.loadFromFile("../assets/img/background.JPG")) {
         std::cerr << "Error loading background texture" << std::endl;
     }
     this->backgroundSprite.setTexture(this->backgroundTexture);

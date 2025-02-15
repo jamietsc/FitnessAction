@@ -9,7 +9,7 @@
 
 
 EndScreen::EndScreen(float width, float height) {
-    if (!font.loadFromFile("../fonts/STENCIL.ttf")) {
+    if (!font.loadFromFile("../assets/fonts/STENCIL.ttf")) {
         std::cerr << "Fehler: Laden der Schrift fehlgeschlagen" << std::endl;
     }
 

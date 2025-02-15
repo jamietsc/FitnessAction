@@ -5,7 +5,7 @@
 #include "PlayerGUI.h"
 
 void PlayerGUI::initFont() {
-    this->font.loadFromFile("../fonts/STENCIL.TTF");
+    this->font.loadFromFile("../assets/fonts/STENCIL.TTF");
 }
 
 void PlayerGUI::initHPBar(sf::Vector2f position) {

@@ -20,7 +20,7 @@ void CharacterMenu::showNewStats() {
 }
 
 CharacterMenu::CharacterMenu(float width, float height) {
-    if (!font.loadFromFile("../fonts/STENCIL.TTF")) {
+    if (!font.loadFromFile("../assets/fonts/STENCIL.TTF")) {
         std::cerr << "CharacterMenu: Laden der Schriftart Fehlgeschlagen." << std::endl;
     }
 

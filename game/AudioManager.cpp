@@ -8,18 +8,18 @@
 #include <ostream>
 
 AudioManager::AudioManager() {
-    if (!clickBuffer.loadFromFile("../sounds/menu_sound.wav")) {
-        std::cerr << "AudioManager: Fehler beim laden von ../sound/menu_sound.wav" << std::endl;
+    if (!clickBuffer.loadFromFile("../assets/sounds/menu_sound.wav")) {
+        std::cerr << "AudioManager: Fehler beim laden von ../assets/sound/menu_sound.wav" << std::endl;
     }
     clickSound.setBuffer(clickBuffer);
 
-    if (!attackBuffer.loadFromFile("../sounds/attack_sound.wav")) {
-        std::cerr << "AudioManager: Fehler beim laden von ../sounds/attack_sound.wav" << std::endl;
+    if (!attackBuffer.loadFromFile("../assets/sounds/attack_sound.wav")) {
+        std::cerr << "AudioManager: Fehler beim laden von ../assets/sounds/attack_sound.wav" << std::endl;
     }
     attackSound.setBuffer(attackBuffer);
 
-    if (!backgroundMusic.openFromFile("../sounds/background_music.wav")) {
-        std::cerr << "AudioManager: Fehler beim laden von ../sounds/background_music.wav" << std::endl;
+    if (!backgroundMusic.openFromFile("../assets/sounds/background_music.wav")) {
+        std::cerr << "AudioManager: Fehler beim laden von ../assets/sounds/background_music.wav" << std::endl;
     }
 }
 

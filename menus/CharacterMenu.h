@@ -59,13 +59,13 @@ private:
     std::vector<sf::Vector2f> arrowRightPosition;
 
     std::vector<std::string> skinPaths = {
-            "../img/player/spieler_blau.png",
-        "../img/player/spieler_gruen.png"
+            "../assets/img/player/spieler_blau.png",
+        "../assets/img/player/spieler_gruen.png"
     };
 
     std::vector<std::string> weaponPaths = {
-            "../img/weapons/kurzhantel.png",
-            "../img/weapons/langhantel_hor.png"
+            "../assets/img/weapons/kurzhantel.png",
+            "../assets/img/weapons/langhantel_hor.png"
     };
 
     std::vector<weaponStats> weaponStats = {

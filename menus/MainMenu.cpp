@@ -8,7 +8,7 @@
 #include <ostream>
 
 MainMenu::MainMenu(float width, float height) {
-    if (!font.loadFromFile("../fonts/STENCIL.TTF")) {
+    if (!font.loadFromFile("../assets/fonts/STENCIL.TTF")) {
         std::cerr << "Failed to load font" << std::endl;
     }
 
