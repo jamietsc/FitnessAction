@@ -30,8 +30,10 @@ add_executable(FitnessAction main.cpp
         menus/EndScreen.h
         menus/CharacterMenu.cpp
         menus/CharacterMenu.h
+        game/AudioManager.cpp
+        game/AudioManager.h
 )
 
 #SFML mit dem Projekt linken
-target_link_libraries(FitnessAction PRIVATE sfml-graphics)
+target_link_libraries(FitnessAction PRIVATE sfml-graphics sfml-audio)
 target_compile_features(FitnessAction PRIVATE cxx_std_23)

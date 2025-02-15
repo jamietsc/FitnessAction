@@ -15,6 +15,7 @@
 #include "Weapon.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
+#include "AudioManager.h"
 
 class Fighter {
 public:
@@ -63,6 +64,9 @@ private:
     sf::Texture playerTexture, weaponTexture;
     sf::Sprite playerSprite, weaponSprite;
     sf::String skinPath;
+
+    //Angriffsound
+    AudioManager audioManager;
 };
 
 

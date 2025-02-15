@@ -77,6 +77,9 @@ private:
     EndScreen* endScreen;
     bool inEndScreen = false;
 
+    //Audio Manager für die Sounds
+    AudioManager audioManager;
+
     //Private funktionen
     void initVariables();
     void scaleBackground();

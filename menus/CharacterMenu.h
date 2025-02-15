@@ -15,6 +15,8 @@
 #include "../game/Weapon.h"
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "../game/AudioManager.h"
+
 struct weaponStats {
     std::string name;
     int damage;

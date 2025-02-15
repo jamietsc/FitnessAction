@@ -22,6 +22,8 @@ Fighter::Fighter(int health, int velocity, float xPos, float yPos, float velocit
     this->playerSprite.setTexture(this->playerTexture);
 
     this->attackCooldown = weapon.getAttackSpeed();
+
+    AudioManager audioManager;
 }
 
 Fighter::~Fighter() {
@@ -117,6 +119,7 @@ void Fighter::attack(Fighter &enemy) {
         if (this->attackTimer >= this->attackCooldown) { // Attacke nur ausführen, wenn Cooldown vorbei ist
             enemy.health -= this->weapon.getDamage();
             this->attackTimer = 0; // Timer hier zurücksetzen
+            audioManager.playAttackSound();
         }
     }
 }

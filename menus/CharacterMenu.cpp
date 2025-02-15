@@ -228,7 +228,6 @@ CharacterMenu::CharacterMenu(float width, float height) {
     secondAttackSpeed.setCharacterSize(15);
     secondAttackSpeed.setFillColor(sf::Color::White);
     secondAttackSpeed.setPosition(secondPlayerLeft - secondAttackSpeed.getLocalBounds().width, secondPlayerCharacterBack.getPosition().y + 60);
-
 }
 
 void CharacterMenu::render(sf::RenderWindow &window) {

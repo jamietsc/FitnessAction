@@ -16,6 +16,7 @@ Game::Game() {
     this->initMainMenu();
     this->initCharacterMenu();
     this->initEndScreen();
+    audioManager.playBackgroundMusic();
 }
 
 Game::~Game() {
@@ -62,10 +63,13 @@ void Game::pollEvents() {
                     break;
                 case sf::Event::KeyPressed:
                     if (this->event.key.code == sf::Keyboard::Up) {
+                        audioManager.playMenuClick();
                         mainMenu->moveUp();
                     } else if (this->event.key.code == sf::Keyboard::Down) {
+                        audioManager.playMenuClick();
                         mainMenu->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
+                        audioManager.playMenuClick();
                         if (mainMenu->getSelectedItem() == 0) {
                             inMenu = false; // Spiel starten
                             inCharacterMenu = true;
@@ -74,8 +78,8 @@ void Game::pollEvents() {
                         } else if (mainMenu->getSelectedItem() == 2) {
                             this->window->close();
                         }
-                        break;
                     }
+                    break;
                 default:
                     break;
             }
@@ -87,13 +91,18 @@ void Game::pollEvents() {
                 case sf::Event::KeyPressed:
                     if (this->event.key.code == sf::Keyboard::Left) {
                         characterMenu->moveLeft();
+                        audioManager.playMenuClick();
                     } else if (this->event.key.code == sf::Keyboard::Right) {
                         characterMenu->moveRight();
+                        audioManager.playMenuClick();
                     } else if (this->event.key.code == sf::Keyboard::Up) {
                         characterMenu->moveUp();
+                        audioManager.playMenuClick();
                     } else if (this->event.key.code == sf::Keyboard::Down) {
                         characterMenu->moveDown();
+                        audioManager.playMenuClick();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
+                        audioManager.playMenuClick();
                         if (characterMenu->getSelectedLayer() == 4) {
                             inCharacterMenu = false;
                             this->initPlayer();
@@ -149,11 +158,13 @@ void Game::pollEvents() {
                     this->window->close();
                     break;
                 case sf::Event::KeyPressed:
+                    audioManager.playMenuClick();
                     if (this->event.key.code == sf::Keyboard::Up) {
                         endScreen->moveUp();
                     } else if (this->event.key.code == sf::Keyboard::Down) {
                         endScreen->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
+                        audioManager.playMenuClick();
                         if (endScreen->getSelectedItem() == 0) {
                             restartGame();
                         } else if (endScreen->getSelectedItem() == 1) {
@@ -238,11 +249,26 @@ void Game::restartGame() {
 
 void Game::goIntoCharacterMenu() {
     // Lösche alle spielbezogenen Objekte, um Speicherlecks zu vermeiden
-    if (this->player) { delete this->player; this->player = nullptr; }
-    if (this->ai) { delete this->ai; this->ai = nullptr; }
-    if (this->playerGUI) { delete this->playerGUI; this->playerGUI = nullptr; }
-    if (this->aiGUI) { delete this->aiGUI; this->aiGUI = nullptr; }
-    if (this->endScreen) { delete this->endScreen; this->endScreen = nullptr; }
+    if (this->player) {
+        delete this->player;
+        this->player = nullptr;
+    }
+    if (this->ai) {
+        delete this->ai;
+        this->ai = nullptr;
+    }
+    if (this->playerGUI) {
+        delete this->playerGUI;
+        this->playerGUI = nullptr;
+    }
+    if (this->aiGUI) {
+        delete this->aiGUI;
+        this->aiGUI = nullptr;
+    }
+    if (this->endScreen) {
+        delete this->endScreen;
+        this->endScreen = nullptr;
+    }
 
     // Setze die Zustände zurück
     this->inGame = false;
@@ -302,12 +328,14 @@ void Game::initWindow() {
 }
 
 void Game::initPlayer() {
-    this->player = new Fighter(100, 3, 100.0, 500.0, 0.0f, *characterMenu->getFirstWeapon(), characterMenu->getSelectedFirstCharacter());
+    this->player = new Fighter(100, 3, 100.0, 500.0, 0.0f, *characterMenu->getFirstWeapon(),
+                               characterMenu->getSelectedFirstCharacter());
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 }
 
 void Game::initAI() {
-    this->ai = new AI(100, 3, 400.0, 500.0, 0.0f, *characterMenu->getSecondWeapon(), characterMenu->getSelectedSecondCharacter());
+    this->ai = new AI(100, 3, 400.0, 500.0, 0.0f, *characterMenu->getSecondWeapon(),
+                      characterMenu->getSelectedSecondCharacter());
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
 
