@@ -7,38 +7,41 @@
 #include <iostream>
 #include <ostream>
 
-MainMenu::MainMenu(float width, float height) {
+MainMenu::MainMenu(sf::RenderWindow& window) {
     if (!font.loadFromFile("../assets/fonts/STENCIL.TTF")) {
         std::cerr << "Failed to load font" << std::endl;
     }
+
+    sf::Vector2u windowSize = window.getSize();
+    float centerX = windowSize.x / 2.0f;
 
     //Titel
     title.setFont(font);
     title.setString("Fitness Action");
     title.setCharacterSize(50);
     title.setFillColor(sf::Color::White);
-    title.setPosition(width / 2 - 100, 100);
+    title.setPosition(centerX, 100);
 
     //Play Button
     playButton.setFont(font);
     playButton.setString("Spiel starten");
     playButton.setCharacterSize(40);
     playButton.setFillColor(sf::Color::Red);
-    playButton.setPosition(width / 2 - 50, 250);
+    playButton.setPosition(centerX, 250);
 
     //Options Button
     optionsButton.setFont(font);
     optionsButton.setString("Optionen");
     optionsButton.setCharacterSize(40);
     optionsButton.setFillColor(sf::Color::White);
-    optionsButton.setPosition(width / 2 - 50, 350);
+    optionsButton.setPosition(centerX, 350);
 
     //Exit Button
     exitButton.setFont(font);
     exitButton.setString("Beenden");
     exitButton.setCharacterSize(40);
     exitButton.setFillColor(sf::Color::White);
-    exitButton.setPosition(width / 2 - 50, 450);
+    exitButton.setPosition(centerX, 450);
 
     selectedItemIndex = 0;
 }
@@ -98,4 +101,14 @@ void MainMenu::moveDown() {
 
 int MainMenu::getSelectedItem() {
     return selectedItemIndex;
+}
+
+void MainMenu::resize(sf::RenderWindow &window) {
+    sf::Vector2u windowSize = window.getSize();
+    float centerX = windowSize.x / 2.0f;
+
+    title.setPosition(centerX, 120);
+    playButton.setPosition(centerX, 250);
+    optionsButton.setPosition(centerX, 350);
+    exitButton.setPosition(centerX, 450);
 }

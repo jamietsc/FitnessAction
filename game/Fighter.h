@@ -38,6 +38,9 @@ public:
     float getXPos();
     int getHealth();
 
+    //setter
+    void setGround(sf::RenderWindow &window);
+
 
 
 private:
@@ -49,6 +52,7 @@ private:
     float velocityX = 0.0f; //aktuelle Bewegungsgeschwindigkeit
     float acceleration = 1.1f; //Beschleunigung des Spielers
     float friction = 0.9f; //Reibung für langsames stoppen
+    float ground;
 
     float attackCooldown;
     float attackTimer = 0.0f;

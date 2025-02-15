@@ -86,12 +86,13 @@ private:
 
     void showNewStats();
 public:
-    CharacterMenu(float width, float height);
+    CharacterMenu(sf::RenderWindow &window);
     void render(sf::RenderWindow &window);
     void moveUp();
     void moveDown();
     void moveLeft();
     void moveRight();
+    void resize(sf::RenderWindow &window);
 
     std::string getSelectedFirstCharacter();
     std::string getSelectedFirstWeapon();

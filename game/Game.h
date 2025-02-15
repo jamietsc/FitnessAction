@@ -80,6 +80,9 @@ private:
     //Audio Manager für die Sounds
     AudioManager audioManager;
 
+    //Variable für Fullscreen
+    bool isFullScreen = false;
+
     //Private funktionen
     void initVariables();
     void scaleBackground();
@@ -89,6 +92,8 @@ private:
     void initMainMenu();
     void initCharacterMenu();
     void initEndScreen();
+
+    void resizeGame();
 
 
 };

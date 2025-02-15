@@ -55,6 +55,28 @@ void Game::pollEvents() {
             this->window->close();
         }
 
+        /** Kann auskommentiert werden, wenn weitere Bearbeitung
+        //Steuerung für Fullscreen
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F11) {
+            isFullScreen = !isFullScreen;
+            window->close();
+            if (isFullScreen) {
+                window->create(sf::VideoMode::getDesktopMode(), "FitnessAction", sf::Style::Fullscreen);
+            } else {
+                window->create(sf::VideoMode(800, 600), "FitnessAction", sf::Style::Default);
+            }
+            if (inMenu) {
+                mainMenu->resize(*this->window);
+            }
+            if (inCharacterMenu) {
+                characterMenu->resize(*this->window);
+            }
+            if (inGame) {
+                resizeGame();
+            }
+        }
+        **/
+
         //steuerung für das Main Menu
         if (inMenu) {
             switch (this->event.type) {
@@ -142,9 +164,6 @@ void Game::pollEvents() {
                     if (this->event.mouseButton.button == sf::Mouse::Left) {
                         this->player->attack(*ai);
                     }
-                    break;
-                case sf::Event::Resized:
-                    scaleBackground();
                     break;
                 default:
                     break;
@@ -330,17 +349,19 @@ void Game::initWindow() {
 void Game::initPlayer() {
     this->player = new Fighter(100, 3, 100.0, 500.0, 0.0f, *characterMenu->getFirstWeapon(),
                                characterMenu->getSelectedFirstCharacter());
+    player->setGround(*this->window);
     this->playerGUI = new PlayerGUI(this->player, sf::Vector2f(20.0f, 20.0f));
 }
 
 void Game::initAI() {
     this->ai = new AI(100, 3, 400.0, 500.0, 0.0f, *characterMenu->getSecondWeapon(),
                       characterMenu->getSelectedSecondCharacter());
+    ai->setGround(*this->window);
     this->aiGUI = new PlayerGUI(this->ai, sf::Vector2f(620, 20.0f));
 }
 
 void Game::initMainMenu() {
-    this->mainMenu = new MainMenu(this->window->getSize().x, this->window->getSize().y);
+    this->mainMenu = new MainMenu(*this->window);
     if (!this->mainMenu) {
         std::cerr << "Fehler: mainMenu konnte nicht initialisiert werden!" << std::endl;
         exit(1);
@@ -349,7 +370,7 @@ void Game::initMainMenu() {
 }
 
 void Game::initCharacterMenu() {
-    this->characterMenu = new CharacterMenu(this->window->getSize().x, this->window->getSize().y);
+    this->characterMenu = new CharacterMenu(*this->window);
     if (!this->characterMenu) {
         std::cerr << "Fehler: characterMenu konnte nicht initialisiert werden!" << std::endl;
         exit(1);
@@ -364,4 +385,10 @@ void Game::initEndScreen() {
         exit(1);
     }
     this->inEndScreen = false;
+}
+
+void Game::resizeGame() {
+    //this->scaleBackground();
+    player->setGround(*this->window);
+    ai->setGround(*window);
 }

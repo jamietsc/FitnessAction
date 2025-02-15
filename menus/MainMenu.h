@@ -19,11 +19,12 @@ private:
     int selectedItemIndex; //0 = Spiel Starten, 1 = Optionen, 2 = Spiel beenden
 
 public:
-    MainMenu(float width, float height);
+    MainMenu(sf::RenderWindow& window);
     void render(sf::RenderWindow &window);
     void moveUp();
     void moveDown();
     int getSelectedItem();
+    void resize(sf::RenderWindow& window);
 };
 
 

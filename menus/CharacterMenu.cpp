@@ -19,7 +19,11 @@ void CharacterMenu::showNewStats() {
     }
 }
 
-CharacterMenu::CharacterMenu(float width, float height) {
+CharacterMenu::CharacterMenu(sf::RenderWindow &window) {
+    sf::Vector2u windowSize = window.getSize();
+    float centerX = windowSize.x / 2;
+    float centerY = windowSize.y / 2;
+
     if (!font.loadFromFile("../assets/fonts/STENCIL.TTF")) {
         std::cerr << "CharacterMenu: Laden der Schriftart Fehlgeschlagen." << std::endl;
     }
@@ -29,23 +33,23 @@ CharacterMenu::CharacterMenu(float width, float height) {
     title.setString("Charakter Auwahl");
     title.setCharacterSize(50);
     title.setFillColor(sf::Color::White);
-    title.setPosition(width / 2 - 275, 50);
+    title.setPosition(centerX - (0.5f * title.getLocalBounds().width), 50);
 
     //Erster Spieler Spalte
     firstPlayerText.setFont(font);
     firstPlayerText.setString("Spieler 1:");
     firstPlayerText.setCharacterSize(30);
     firstPlayerText.setFillColor(sf::Color::White);
-    firstPlayerText.setPosition(width / 2 - 300, 120);
+    firstPlayerText.setPosition(centerX - 300, 120);
 
     //Erster Spieler Charakterauswahl
     firstPlayerCharcterBack.setFillColor(sf::Color(200, 200, 200, 200));
-    firstPlayerCharcterBack.setPosition(width / 2 - 300, 170);
+    firstPlayerCharcterBack.setPosition(centerX - 300, 170);
     firstPlayerCharcterBack.setSize(sf::Vector2f(150.f, 250.f));
 
     //Erster Spieler Waffenauswahl
     firstPlayerWeaponBack.setFillColor(sf::Color(200, 200, 200, 200));
-    firstPlayerWeaponBack.setPosition(width / 2 - 300, 450);
+    firstPlayerWeaponBack.setPosition(centerX - 300, 450);
     firstPlayerWeaponBack.setSize(sf::Vector2f(150.f, 75.f));
 
     //Zweiter Spieler Spalte
@@ -53,15 +57,15 @@ CharacterMenu::CharacterMenu(float width, float height) {
     secondPlayerText.setString("Spieler 2:");
     secondPlayerText.setCharacterSize(30);
     secondPlayerText.setFillColor(sf::Color::White);
-    secondPlayerText.setPosition(width / 2 + 100, 120);
+    secondPlayerText.setPosition(centerX + 100, 120);
 
     secondPlayerCharacterBack.setFillColor(sf::Color(200, 200, 200, 200));
-    secondPlayerCharacterBack.setPosition(width / 2 + 100, 170);
+    secondPlayerCharacterBack.setPosition(centerX + 100, 170);
     secondPlayerCharacterBack.setSize(sf::Vector2f(150.f, 250.f));
 
     //Zweiter Spieler Waffenauswahl
     secondPlayerWeaponBack.setFillColor(sf::Color(200, 200, 200, 200));
-    secondPlayerWeaponBack.setPosition(width / 2 + 100, 450);
+    secondPlayerWeaponBack.setPosition(centerX + 100, 450);
     secondPlayerWeaponBack.setSize(sf::Vector2f(150.f, 75.f));
 
     //Zum überprüfen ob alle Spieler Bilder geladen werden können
@@ -179,8 +183,7 @@ CharacterMenu::CharacterMenu(float width, float height) {
     enterButton.setCharacterSize(30);
     enterButton.setFillColor(sf::Color::White);
     enterButton.setPosition(
-        width / 2 - 125,
-        height - 50
+        centerX - 125, windowSize.y - 50
     );
 
     firstPlayerWeapon = new Weapon(weaponStats[0].name, weaponStats[0].damage, weaponStats[0].attackSpeed,
@@ -391,6 +394,68 @@ void CharacterMenu::moveRight() {
     }
     showNewStats();
 }
+
+void CharacterMenu::resize(sf::RenderWindow &window) {
+    sf::Vector2u windowSize = window.getSize();
+    float centerX = windowSize.x / 2;
+    float centerY = windowSize.y / 2;
+
+    // Titel
+    title.setPosition(centerX - 275, 50);
+
+    // Erster Spieler Spalte
+    firstPlayerText.setPosition(centerX - 300, 120);
+    firstPlayerCharcterBack.setPosition(centerX - 300, 170);
+    firstPlayerWeaponBack.setPosition(centerX - 300, 450);
+
+    // Zweiter Spieler Spalte
+    secondPlayerText.setPosition(centerX + 100, 120);
+    secondPlayerCharacterBack.setPosition(centerX + 100, 170);
+    secondPlayerWeaponBack.setPosition(centerX + 100, 450);
+
+    // Spieler-Sprites neu positionieren
+    firstPlayerSprite.setPosition(
+        firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x / 2,
+        firstPlayerCharcterBack.getPosition().y + firstPlayerCharcterBack.getSize().y / 2
+    );
+
+    firstWeaponSprite.setPosition(
+        firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x / 2,
+        firstPlayerWeaponBack.getPosition().y + firstPlayerWeaponBack.getSize().y / 2
+    );
+
+    secondPlayerSprite.setPosition(
+        secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x / 2,
+        secondPlayerCharacterBack.getPosition().y + secondPlayerCharacterBack.getSize().y / 2
+    );
+
+    secondWeaponSprite.setPosition(
+        secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x / 2,
+        secondPlayerWeaponBack.getPosition().y + secondPlayerWeaponBack.getSize().y / 2
+    );
+
+    // Pfeile neu positionieren
+    arrowLeftPosition = {
+        {firstPlayerCharcterBack.getPosition().x - 50, firstPlayerCharcterBack.getPosition().y + firstPlayerCharcterBack.getSize().y / 2},
+        {firstPlayerWeaponBack.getPosition().x - 50, firstPlayerWeaponBack.getPosition().y + firstPlayerWeaponBack.getSize().y / 2},
+        {secondPlayerCharacterBack.getPosition().x - 50, secondPlayerCharacterBack.getPosition().y + secondPlayerCharacterBack.getSize().y / 2},
+        {secondPlayerWeaponBack.getPosition().x - 50, secondPlayerWeaponBack.getPosition().y + secondPlayerWeaponBack.getSize().y / 2}
+    };
+
+    arrowRightPosition = {
+        {firstPlayerCharcterBack.getPosition().x + firstPlayerCharcterBack.getSize().x + 20, firstPlayerCharcterBack.getPosition().y + firstPlayerCharcterBack.getSize().y / 2},
+        {firstPlayerWeaponBack.getPosition().x + firstPlayerWeaponBack.getSize().x + 20, firstPlayerWeaponBack.getPosition().y + firstPlayerWeaponBack.getSize().y / 2},
+        {secondPlayerCharacterBack.getPosition().x + secondPlayerCharacterBack.getSize().x + 20, secondPlayerCharacterBack.getPosition().y + secondPlayerCharacterBack.getSize().y / 2},
+        {secondPlayerWeaponBack.getPosition().x + secondPlayerWeaponBack.getSize().x + 20, secondPlayerWeaponBack.getPosition().y + secondPlayerWeaponBack.getSize().y / 2}
+    };
+
+    arrowLeft.setPosition(arrowLeftPosition[selectedLayer]);
+    arrowRight.setPosition(arrowRightPosition[selectedLayer]);
+
+    // Bestätigen-Button
+    enterButton.setPosition(centerX - 125, windowSize.y - 50);
+}
+
 
 std::string CharacterMenu::getSelectedFirstCharacter() {
     return skinPaths[selectedItemFirstCharacter];

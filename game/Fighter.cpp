@@ -4,9 +4,6 @@
 
 #include "Fighter.h"
 
-const float groundYCor = 500.0f;
-
-
 Fighter::Fighter(int health, int velocity, float xPos, float yPos, float velocityY,
                  Weapon weapon, sf::String skinPath)
     : health(health), velocity(velocity), xPos(xPos), yPos(yPos), velocityY(velocityY),
@@ -31,11 +28,11 @@ Fighter::~Fighter() {
 
 void Fighter::update(float deltaTime) {
     // Schwerkraft anwenden
-    if (this->yPos < groundYCor) {
+    if (this->yPos < ground) {
         this->velocityY += 0.5f * deltaTime * 60;
         this->yPos += this->velocityY * deltaTime * 60;
     } else {
-        this->yPos = groundYCor;  // Auf dem Boden bleiben
+        this->yPos = ground;  // Auf dem Boden bleiben
         this->velocityY = 0;      // Geschwindigkeit zurücksetzen
     }
 
@@ -63,13 +60,12 @@ void Fighter::render(sf::RenderTarget &target) {
 bool Fighter::isDead() {
     if (this->health <= 0) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 void Fighter::move(int dirX, float deltaTime) {
-    float maxSpeed = 5.0f; //maximale Geschwindigkeit
+    const float maxSpeed = 5.0f; //maximale Geschwindigkeit
 
     if (dirX != 0) {
         if ((dirX > 0 && velocityX < 0) || (dirX < 0 && velocityX > 0)) {
@@ -107,7 +103,7 @@ void Fighter::move(int dirX, float deltaTime) {
 }
 
 void Fighter::jump() {
-    if (this->yPos == groundYCor) {
+    if (this->yPos == ground) {
         this->velocityY = -10.0f;  // Negative Geschwindigkeit für Sprung
         this->yPos += this->velocityY;
     }
@@ -130,4 +126,8 @@ float Fighter::getXPos() {
 
 int Fighter::getHealth() {
     return this->health;
+}
+
+void Fighter::setGround(sf::RenderWindow &window) {
+    ground = window.getSize().y - 100;
 }
