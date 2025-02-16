@@ -17,40 +17,77 @@
 
 class MainMenu;
 /**
- * Klasse welche die Game Engine darstellt
+ * @brief Klasse welche die Game Engine darstellt
  */
 class Game {
 public:
     //Konstruktoren und Destruktoren
+    /**
+     * @brief Konstruktor der Game Klasse
+     * @details Initialisiert das Game
+     */
     Game();
+
+    /**
+     * @brief Destruktor der Game Klasse
+     */
     virtual ~Game();
 
     //accessors
+    /**
+     * @brief prüft ob das Spiel aktuell läuft
+     * @return ob das Spiel läuft (bool)
+     */
     const bool isRunning() const;
 
     //Funktionen
+    /**
+     * @brief Funktion zum updaten der DeltaTime
+     * @details updatet die zeit welche pro Frame vergeht
+     */
     void updateDt();
+
+    /**
+     * @brief für Steuerung
+     * @details Funktion überprüft die Eingaben des Spielers
+     */
     void pollEvents();
+
+    /**
+     * @brief updatet die gerenderten Inhalte
+     */
     void update();
+
+    /**
+     * @brief rendert alle Inhalte
+     */
     void render();
+
+    /**
+     * @brief Funktion um das Spiel neu zu starten
+     */
     void restartGame();
+
+    /**
+     * @brief Funktion um wieder zurück ins Charakter Menü zu gehen
+     */
     void goIntoCharacterMenu();
 
 
 private:
     //Variables
     //Window
-    sf::RenderWindow* window;
-    sf::VideoMode videoMode;
-    sf::Event event;
+    sf::RenderWindow* window; //Instanz für das Window
+    sf::VideoMode videoMode; //Videomode um attribute festzulegen
+    sf::Event event;//event um Eingaben entgegen zu nehmen
 
     //Hintergrund
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
+    sf::Texture backgroundTexture; //Textur für den Hintergrund
+    sf::Sprite backgroundSprite; //Sprite für den Hintergrund
 
     //Delta time
-    sf::Clock dtClock;
-    float dt;
+    sf::Clock dtClock; //Clock um die DeltaTime zu messen
+    float dt; //Zeit welche zwischen zwei Frames vergeht
 
     //spieler
     Fighter* player; //zeige auf den Spieler
@@ -63,36 +100,74 @@ private:
     PlayerGUI* aiGUI; //Zeigt auf aiGUI
 
     //Main Menu
-    MainMenu* mainMenu;
-    bool inMenu = true;
+    MainMenu* mainMenu; //Instanz auf Main Menu
+    bool inMenu = true; //Spiel immer im Hauptmenü starten
 
     //Character Auswahl
-    CharacterMenu* characterMenu;
-    bool inCharacterMenu = false;
+    CharacterMenu* characterMenu; //Instanz auf das Character Menü
+    bool inCharacterMenu = false; //wird auf true gesetzt wenn das charactermenu geöffnet wird
 
     //Variable ob das Spiel aktiv ist
     bool inGame = false;
 
     //End Bildschirm
-    EndScreen* endScreen;
-    bool inEndScreen = false;
+    EndScreen* endScreen; //Instanz auf den Endbildschirm
+    bool inEndScreen = false; //wird auf true gesetzt wenn der Endscreen geöffnet wird
 
     //Audio Manager für die Sounds
-    AudioManager audioManager;
+    AudioManager audioManager; //audio manager um HIntergrundmusik abzuspielen
 
     //Variable für Fullscreen
-    bool isFullScreen = false;
+    bool isFullScreen = false; //wird auf true gesetzt wenn Fullscreen aktiv
 
     //Private funktionen
+    /**
+     * @brief Funktion zum initialisieren der Variabeln
+     * @details Variablen werden alle auf nullptr gesetzt um Speicherlecks zu vermeidne
+     */
     void initVariables();
+
+    /**
+     * @brief skaliert den Hintergrund auf Fenstergröße
+     */
     void scaleBackground();
+
+    /**
+     * @brief initialisiert das Fenster
+     */
     void initWindow();
+
+    /**
+     * @brief initialisiert den Spieler
+     * @details erstellt die Spieler Instanz
+     */
     void initPlayer();
+
+    /**
+     * @brief initialisiert den Computer
+     * @details erstellt die Computer Instanz
+     */
     void initAI();
+
+    /**
+     * @brief initialisiert das Hauptmenü
+     */
     void initMainMenu();
+
+    /**
+     * @brief initialisiert das Charakter Menü
+     */
     void initCharacterMenu();
+
+    /**
+     * @brief initialisiert den Endbildschirm
+     */
     void initEndScreen();
 
+    /**
+     * @brief resized das Spiel
+     * @details sorgt dafür das alle Elemente an die Fenstergröße angepasst werden
+     */
     void resizeGame();
 
 

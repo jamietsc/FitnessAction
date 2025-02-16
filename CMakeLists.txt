@@ -32,8 +32,6 @@ add_executable(FitnessAction main.cpp
         menus/CharacterMenu.h
         game/AudioManager.cpp
         game/AudioManager.h
-        manager/SettingsManager.cpp
-        manager/SettingsManager.h
 )
 
 #SFML mit dem Projekt linken

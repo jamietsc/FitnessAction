@@ -33,7 +33,7 @@ CharacterMenu::CharacterMenu(sf::RenderWindow &window) {
     title.setString("Charakter Auwahl");
     title.setCharacterSize(50);
     title.setFillColor(sf::Color::White);
-    title.setPosition(centerX - (0.5f * title.getLocalBounds().width), 50);
+    title.setPosition(centerX - (0.55f * title.getLocalBounds().width), 50);
 
     //Erster Spieler Spalte
     firstPlayerText.setFont(font);

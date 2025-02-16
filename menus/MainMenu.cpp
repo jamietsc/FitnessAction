@@ -30,11 +30,13 @@ MainMenu::MainMenu(sf::RenderWindow& window) {
     playButton.setPosition(centerX, 250);
 
     //Options Button
+    /**
     optionsButton.setFont(font);
     optionsButton.setString("Optionen");
     optionsButton.setCharacterSize(40);
     optionsButton.setFillColor(sf::Color::White);
     optionsButton.setPosition(centerX, 350);
+    **/
 
     //Exit Button
     exitButton.setFont(font);
@@ -49,13 +51,13 @@ MainMenu::MainMenu(sf::RenderWindow& window) {
 void MainMenu::render(sf::RenderWindow &window) {
     window.draw(title);
     window.draw(playButton);
-    window.draw(optionsButton);
+    //window.draw(optionsButton);
     window.draw(exitButton);
 }
 
 void MainMenu::moveUp() {
     if (selectedItemIndex > 0) {
-        selectedItemIndex--;
+        selectedItemIndex -= 2;
         switch (selectedItemIndex) {
             case 0:
                 playButton.setFillColor(sf::Color::Red);
@@ -78,7 +80,7 @@ void MainMenu::moveUp() {
 
 void MainMenu::moveDown() {
     if (selectedItemIndex < 2) {
-        selectedItemIndex++;
+        selectedItemIndex += 2;
         switch (selectedItemIndex) {
             case 0:
                 playButton.setFillColor(sf::Color::Red);

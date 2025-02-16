@@ -29,14 +29,19 @@ void AudioManager::playMenuClick() {
 
 void AudioManager::playAttackSound() {
     attackSound.play();
+
 }
 
 void AudioManager::playBackgroundMusic() {
     backgroundMusic.setLoop(true);
-    backgroundMusic.setVolume(50);
+    backgroundMusic.setVolume(30);
     backgroundMusic.play();
 }
 
 void AudioManager::stopBackgroundMusic() {
     backgroundMusic.stop();
+}
+
+void AudioManager::stopAttackSound() {
+    attackSound.stop();
 }

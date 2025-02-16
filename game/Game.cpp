@@ -217,6 +217,7 @@ void Game::update() {
             endScreen->winnerMessage(1);
             this->inGame = true;
         }
+
     }
 }
 
@@ -224,16 +225,20 @@ void Game::render() {
     this->window->clear();
     //Rendern des Start Menüs
     if (inMenu) {
+        window->clear();
         mainMenu->render(*this->window);
     }
 
     //Rendern des Menüs zur Charakterauswahl
     if (inCharacterMenu) {
+        window->clear();
         characterMenu->render(*this->window);
     }
 
     //Rendern des Spiels
     if (inGame) {
+        audioManager.playAttackSound();
+        window->clear();
         //Hintergrund rendern
         this->window->draw(this->backgroundSprite);
 
@@ -250,16 +255,12 @@ void Game::render() {
     if (inEndScreen) {
         this->window->clear();
         this->endScreen->render(*this->window);
+        audioManager.stopAttackSound();
     }
     this->window->display();
 }
 
 void Game::restartGame() {
-    delete this->player;
-    delete this->ai;
-    delete this->playerGUI;
-    delete this->aiGUI;
-
     this->initPlayer();
     this->initAI();
     this->inEndScreen = false;
