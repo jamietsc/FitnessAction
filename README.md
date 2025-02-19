@@ -65,8 +65,8 @@ GitHub: [github.com/JamieJentsch](https://github.com/JamieJentsch)
 
 ---
 ## © Credits
-Bilder: eigene Darstellung
-Hintergrund Musik: https://open.spotify.com/intl-de/artist/7hhaBPFNJyZAD1xiR05orT?si=fevOZJlzTviI0JMnwQa8NQ
+- **Bilder:** eigene Darstellung
+- **Hintergrund Musik:** https://open.spotify.com/intl-de/artist/7hhaBPFNJyZAD1xiR05orT?si=fevOZJlzTviI0JMnwQa8NQ
 
 **Viel Spaß beim Spielen von FitnessAction! 💪🎮**
 
