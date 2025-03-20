@@ -1,7 +1,7 @@
 # FitnessAction - 2D-Kampfspiel mit SFML
 
 **Projektbeschreibung:**  
-FitnessAction ist ein 2D-Kampfspiel, das mit C++, SFML und SDL2 entwickelt wurde. Im Spiel treten zwei Charaktere gegeneinander an: einer wird vom Spieler, der andere von der KI gesteuert. Die Charaktere verwenden Fitnessgeräte als Waffen, die unterschiedliche Eigenschaften besitzen.
+FitnessAction ist ein 2D-Kampfspiel, das mit C++, SFML entwickelt wurde. Im Spiel treten zwei Charaktere gegeneinander an: einer wird vom Spieler, der andere von der KI gesteuert. Die Charaktere verwenden Fitnessgeräte als Waffen, die unterschiedliche Eigenschaften besitzen.
 
 ## 🚀 Features
 - **Verschiedene Spielmodi:** Hauptmenü, Charakterauswahl, Spiel und Endbildschirm  
@@ -26,7 +26,7 @@ FitnessAction ist ein 2D-Kampfspiel, das mit C++, SFML und SDL2 entwickelt wurde
 ### Voraussetzungen:
 - C++ Compiler (z. B. MinGW oder MSVC)
 - CMake
-- SFML und SDL2-Bibliotheken
+- SFML-Bibliotehk
 
 ### Build-Anleitung:
 ```bash
@@ -46,6 +46,8 @@ cmake --build build
 ---
 
 ## 🎮 Steuerung
+- ** W oder S: ** Navigation im Menü
+- ** Enter: ** Bestätigung des ausgewählten Punktes 
 - **A oder D:** Bewegung des Spielers
 - **Leertaste:** Springen
 - **Linke Maustaste:** Angriff
@@ -64,6 +66,9 @@ Entwickler: Jamie Jentsch
 GitHub: [github.com/JamieJentsch](https://github.com/JamieJentsch)
 
 ---
+## © Credits
+- **Bilder:** eigene Darstellung
+- **Hintergrund Musik:** https://open.spotify.com/intl-de/artist/7hhaBPFNJyZAD1xiR05orT?si=fevOZJlzTviI0JMnwQa8NQ
 
 **Viel Spaß beim Spielen von FitnessAction! 💪🎮**
 
