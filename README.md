@@ -26,7 +26,7 @@ FitnessAction ist ein 2D-Kampfspiel, das mit C++, SFML entwickelt wurde. Im Spie
 ### Voraussetzungen:
 - C++ Compiler (z. B. MinGW oder MSVC)
 - CMake
-- SFML-Biblithek
+- SFML-Bibliotehk
 
 ### Build-Anleitung:
 ```bash
@@ -46,6 +46,8 @@ cmake --build build
 ---
 
 ## 🎮 Steuerung
+- ** W oder S: ** Navigation im Menü
+- ** Enter: ** Bestätigung des ausgewählten Punktes 
 - **A oder D:** Bewegung des Spielers
 - **Leertaste:** Springen
 - **Linke Maustaste:** Angriff
