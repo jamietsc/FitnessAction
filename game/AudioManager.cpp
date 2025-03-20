@@ -18,7 +18,7 @@ AudioManager::AudioManager() {
     }
     attackSound.setBuffer(attackBuffer);
 
-    if (!backgroundMusic.openFromFile("../assets/sounds/background_music.wav")) {
+    if (!backgroundMusic.openFromFile("../assets/sounds/background_music_2.mp3")) {
         std::cerr << "AudioManager: Fehler beim laden von ../assets/sounds/background_music.wav" << std::endl;
     }
 }

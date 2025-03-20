@@ -84,10 +84,10 @@ void Game::pollEvents() {
                     this->window->close();
                     break;
                 case sf::Event::KeyPressed:
-                    if (this->event.key.code == sf::Keyboard::Up) {
+                    if (this->event.key.code == sf::Keyboard::W) {
                         audioManager.playMenuClick();
                         mainMenu->moveUp();
-                    } else if (this->event.key.code == sf::Keyboard::Down) {
+                    } else if (this->event.key.code == sf::Keyboard::S) {
                         audioManager.playMenuClick();
                         mainMenu->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
@@ -111,16 +111,16 @@ void Game::pollEvents() {
         if (inCharacterMenu) {
             switch (this->event.type) {
                 case sf::Event::KeyPressed:
-                    if (this->event.key.code == sf::Keyboard::Left) {
+                    if (this->event.key.code == sf::Keyboard::A) {
                         characterMenu->moveLeft();
                         audioManager.playMenuClick();
-                    } else if (this->event.key.code == sf::Keyboard::Right) {
+                    } else if (this->event.key.code == sf::Keyboard::D) {
                         characterMenu->moveRight();
                         audioManager.playMenuClick();
-                    } else if (this->event.key.code == sf::Keyboard::Up) {
+                    } else if (this->event.key.code == sf::Keyboard::W) {
                         characterMenu->moveUp();
                         audioManager.playMenuClick();
-                    } else if (this->event.key.code == sf::Keyboard::Down) {
+                    } else if (this->event.key.code == sf::Keyboard::S) {
                         characterMenu->moveDown();
                         audioManager.playMenuClick();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
@@ -178,9 +178,9 @@ void Game::pollEvents() {
                     break;
                 case sf::Event::KeyPressed:
                     audioManager.playMenuClick();
-                    if (this->event.key.code == sf::Keyboard::Up) {
+                    if (this->event.key.code == sf::Keyboard::W) {
                         endScreen->moveUp();
-                    } else if (this->event.key.code == sf::Keyboard::Down) {
+                    } else if (this->event.key.code == sf::Keyboard::S) {
                         endScreen->moveDown();
                     } else if (this->event.key.code == sf::Keyboard::Enter) {
                         audioManager.playMenuClick();
